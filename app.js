@@ -262,7 +262,7 @@
       payment: {
         method: 'CASH',
         status: 'UNPAID',
-        note: isDelivery ? 'Cash on Delivery' : 'Pay at Counter',
+        note: isDelivery ? 'On Delivery' : 'Pay at Counter',
       },
       customer: {
         name: o.customer.name,
@@ -349,7 +349,7 @@
   ${o.totals.deliveryFee ? `<div class="r-row"><span>Delivery fee</span><span>${money(o.totals.deliveryFee)}</span></div>` : ''}
   <div class="r-row r-total"><span>TOTAL</span><span>${money(o.totals.total)}</span></div>
   <div class="r-rule solid"></div>
-  <div class="r-center r-pay">${isDelivery ? 'PAY CASH ON DELIVERY' : 'PAY CASH AT COUNTER'}</div>
+  <div class="r-center r-pay">${isDelivery ? 'PAY ON DELIVERY' : 'PAY AT COUNTER'}</div>
   <div class="r-center r-small">Thank you for your order!</div>
   <div class="r-center r-tiny">Ref ${esc(o.reference)}</div>
   ${o.simulated ? '<div class="r-center r-demo">*** DEMO ORDER - NOT SENT TO POS ***</div>' : ''}

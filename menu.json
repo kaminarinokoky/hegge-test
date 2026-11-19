@@ -61,28 +61,6 @@
     }
   ],
   "optionGroups": {
-    "pizzaSize": {
-      "label": "Size",
-      "type": "single",
-      "choices": [
-        {
-          "id": "s",
-          "label": "Small (24 cm)",
-          "price": 0
-        },
-        {
-          "id": "m",
-          "label": "Medium (30 cm)",
-          "price": 90000,
-          "default": true
-        },
-        {
-          "id": "l",
-          "label": "Large (36 cm)",
-          "price": 170000
-        }
-      ]
-    },
     "crust": {
       "label": "Crust",
       "type": "single",
@@ -101,12 +79,12 @@
         {
           "id": "pan",
           "label": "Pan (thick & fluffy)",
-          "price": 25000
+          "price": 0
         },
         {
           "id": "stuffed",
           "label": "Cheese-stuffed crust",
-          "price": 55000
+          "price": 0
         }
       ]
     },
@@ -124,60 +102,11 @@
         {
           "id": "extra",
           "label": "Extra cheese",
-          "price": 40000
+          "price": 0
         },
         {
           "id": "double",
           "label": "Double cheese",
-          "price": 75000
-        }
-      ]
-    },
-    "pizzaSauce": {
-      "label": "Sauce",
-      "type": "single",
-      "choices": [
-        {
-          "id": "tomato",
-          "label": "Classic tomato",
-          "price": 0,
-          "default": true
-        },
-        {
-          "id": "bbq",
-          "label": "Smoky BBQ",
-          "price": 0
-        },
-        {
-          "id": "white",
-          "label": "Creamy white garlic",
-          "price": 0
-        }
-      ]
-    },
-    "spice": {
-      "label": "Spice level",
-      "type": "single",
-      "choices": [
-        {
-          "id": "mild",
-          "label": "Mild",
-          "price": 0,
-          "default": true
-        },
-        {
-          "id": "medium",
-          "label": "Medium 🌶",
-          "price": 0
-        },
-        {
-          "id": "hot",
-          "label": "Hot 🌶🌶",
-          "price": 0
-        },
-        {
-          "id": "inferno",
-          "label": "Inferno 🌶🌶🌶",
           "price": 0
         }
       ]
@@ -196,12 +125,12 @@
         {
           "id": "slice",
           "label": "Extra cheese slice",
-          "price": 25000
+          "price": 0
         },
         {
           "id": "double",
           "label": "Double cheese slices",
-          "price": 45000
+          "price": 0
         }
       ]
     },
@@ -355,14 +284,11 @@
       "nameFa": "پیتزا مارگاریتا",
       "description": "Tomato sauce, mozzarella and fresh basil on hand-tossed dough.",
       "price": 245000,
-      "emoji": "🍕",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/04d9421646964b84.jpg",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -373,16 +299,13 @@
       "nameFa": "پیتزا پپرونی",
       "description": "Generous pepperoni slices over bubbling mozzarella.",
       "price": 295000,
-      "emoji": "🍕",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/062bba9a6048e375.jpg",
       "popular": true,
       "badge": "Popular",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -393,16 +316,13 @@
       "nameFa": "پیتزا مخصوص هگه",
       "description": "Beef, pepperoni, mushrooms, bell peppers, olives and extra cheese.",
       "price": 325000,
-      "emoji": "🍕",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/1640970f0d2f8d4d.jpg",
       "popular": true,
       "badge": "Signature",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -413,14 +333,11 @@
       "nameFa": "پیتزا مرغ و قارچ",
       "description": "Grilled chicken, mushrooms and mozzarella with a creamy base.",
       "price": 315000,
-      "emoji": "🍕",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/1d66c553e9e2923d.jpg",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -431,14 +348,11 @@
       "nameFa": "پیتزا سبزیجات",
       "description": "Mushrooms, bell peppers, olives, corn and onions.",
       "price": 265000,
-      "emoji": "🥦",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/20e217a3bd9d3be5.jpg",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -449,14 +363,11 @@
       "nameFa": "پیتزا مرغ باربیکیو",
       "description": "Smoky BBQ chicken, red onion and mozzarella.",
       "price": 320000,
-      "emoji": "🍕",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/2512ee6360982c30.jpg",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -467,15 +378,12 @@
       "nameFa": "پیتزا گوشت و هالوپینو",
       "description": "Seasoned beef, jalapeños, red onion and chili flakes.",
       "price": 335000,
-      "emoji": "🌶️",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/254e3655dea5268d.jpg",
       "badge": "Spicy",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -486,14 +394,11 @@
       "nameFa": "پیتزا چهار پنیر",
       "description": "Mozzarella, cheddar, parmesan and cream cheese.",
       "price": 340000,
-      "emoji": "🧀",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/294c2362981a57be.jpg",
       "options": [
-        "pizzaSize",
         "crust",
-        "pizzaCheese",
-        "pizzaSauce",
-        "spice"
+        "pizzaCheese"
       ]
     },
     {
@@ -504,13 +409,12 @@
       "nameFa": "همبرگر کلاسیک",
       "description": "Flame-grilled beef patty, lettuce, tomato, onion and house sauce.",
       "price": 235000,
-      "emoji": "🍔",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/2caea3d8fcb6189a.jpg",
       "options": [
         "cheeseSlice",
         "sauces",
         "addons",
-        "spice",
         "combo"
       ]
     },
@@ -522,15 +426,14 @@
       "nameFa": "چیزبرگر",
       "description": "Our classic with melted cheddar and pickles.",
       "price": 255000,
-      "emoji": "🍔",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/33ffcb5da1f6e092.jpg",
       "popular": true,
       "badge": "Popular",
       "options": [
         "cheeseSlice",
         "sauces",
         "addons",
-        "spice",
         "combo"
       ]
     },
@@ -542,13 +445,12 @@
       "nameFa": "همبرگر دوبل",
       "description": "Two beef patties, double cheddar, caramelized onion.",
       "price": 335000,
-      "emoji": "🍔",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/35cfc223722e2dee.jpg",
       "options": [
         "cheeseSlice",
         "sauces",
         "addons",
-        "spice",
         "combo"
       ]
     },
@@ -560,14 +462,13 @@
       "nameFa": "برگر مرغ سوخاری",
       "description": "Golden fried chicken fillet, lettuce and garlic mayo.",
       "price": 245000,
-      "emoji": "🍗",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/371c8bc7ca85edee.jpg",
       "popular": true,
       "options": [
         "cheeseSlice",
         "sauces",
         "addons",
-        "spice",
         "combo"
       ]
     },
@@ -579,13 +480,12 @@
       "nameFa": "برگر قارچ و پنیر",
       "description": "Beef patty, sautéed mushrooms and melted Swiss-style cheese.",
       "price": 265000,
-      "emoji": "🍔",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/4013d62a51626d55.jpg",
       "options": [
         "cheeseSlice",
         "sauces",
         "addons",
-        "spice",
         "combo"
       ]
     },
@@ -597,14 +497,13 @@
       "nameFa": "برگر هالوپینو",
       "description": "Beef patty, jalapeños, pepper-jack cheese and chili sauce.",
       "price": 275000,
-      "emoji": "🌶️",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/4a805992b7c3b318.jpg",
       "badge": "Spicy",
       "options": [
         "cheeseSlice",
         "sauces",
         "addons",
-        "spice",
         "combo"
       ]
     },
@@ -616,13 +515,12 @@
       "nameFa": "ساندویچ فیله مرغ",
       "description": "Marinated grilled chicken fillet, lettuce, tomato and garlic sauce.",
       "price": 215000,
-      "emoji": "🥪",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/60497095451538c9.jpg",
       "popular": true,
       "options": [
         "cheeseSlice",
         "sauces",
-        "spice",
         "combo"
       ]
     },
@@ -634,12 +532,11 @@
       "nameFa": "ساندویچ اسکالوپ مرغ",
       "description": "Crispy breaded chicken, pickles, lettuce and mayo.",
       "price": 205000,
-      "emoji": "🥪",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/6b76678d6754e517.jpg",
       "options": [
         "cheeseSlice",
         "sauces",
-        "spice",
         "combo"
       ]
     },
@@ -651,12 +548,11 @@
       "nameFa": "ساندویچ استیک گوشت",
       "description": "Sliced seared beef, grilled onions, peppers and melted cheese.",
       "price": 285000,
-      "emoji": "🥩",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/74be4ea8b7fa7ca8.jpg",
       "options": [
         "cheeseSlice",
         "sauces",
-        "spice",
         "combo"
       ]
     },
@@ -668,12 +564,11 @@
       "nameFa": "هات داگ مخصوص",
       "description": "Grilled sausage in a soft roll with onions, pickles and cheese.",
       "price": 175000,
-      "emoji": "🌭",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/7618d43a42416050.jpg",
       "options": [
         "cheeseSlice",
         "sauces",
-        "spice",
         "combo"
       ]
     },
@@ -685,11 +580,10 @@
       "nameFa": "ساندویچ فلافل",
       "description": "Crispy falafel, tomato, pickles and tahini-style sauce.",
       "price": 120000,
-      "emoji": "🧆",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/860792c6884715a8.jpg",
       "options": [
         "sauces",
-        "spice",
         "combo"
       ]
     },
@@ -701,8 +595,8 @@
       "nameFa": "کلاب ساندویچ",
       "description": "Triple-decker toasted bread with chicken, egg, lettuce and tomato.",
       "price": 245000,
-      "emoji": "🥪",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/86858959e0760f7a.jpg",
       "options": [
         "sauces",
         "combo"
@@ -716,12 +610,11 @@
       "nameFa": "ساندویچ کالباس",
       "description": "Sliced cold cuts, cheese, pickles and tomato in a baguette.",
       "price": 160000,
-      "emoji": "🥖",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/907d673c1adf1891.jpg",
       "options": [
         "cheeseSlice",
         "sauces",
-        "spice",
         "combo"
       ]
     },
@@ -733,8 +626,8 @@
       "nameFa": "نوشابه کولا",
       "description": "Ice-cold canned cola.",
       "price": 45000,
-      "emoji": "🥤",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/9220ef58dbe175ae.jpg",
       "options": []
     },
     {
@@ -745,8 +638,8 @@
       "nameFa": "نوشابه پرتقالی",
       "description": "Sparkling orange soda, served cold.",
       "price": 45000,
-      "emoji": "🍊",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/98945f25e5641452.jpg",
       "options": []
     },
     {
@@ -757,8 +650,8 @@
       "nameFa": "نوشابه لیمویی",
       "description": "Crisp lemon-lime soda, served cold.",
       "price": 45000,
-      "emoji": "🍋",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/9976024a3c2a31d7.jpg",
       "options": []
     },
     {
@@ -769,8 +662,8 @@
       "nameFa": "دوغ",
       "description": "Traditional salted yogurt drink with mint.",
       "price": 40000,
-      "emoji": "🥛",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/a3ac2f05f9c524c2.jpg",
       "options": []
     },
     {
@@ -781,8 +674,8 @@
       "nameFa": "آب معدنی",
       "description": "Still mineral water.",
       "price": 20000,
-      "emoji": "💧",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/a69a3ec914e259a3.jpg",
       "options": []
     },
     {
@@ -793,8 +686,8 @@
       "nameFa": "چای سرد",
       "description": "Peach iced tea, lightly sweet.",
       "price": 55000,
-      "emoji": "🧃",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/a7bfec10a20aba32.jpg",
       "options": []
     },
     {
@@ -805,8 +698,8 @@
       "nameFa": "لیموناد",
       "description": "Freshly squeezed lemon, mint and ice.",
       "price": 85000,
-      "emoji": "🍋",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/c39942b70262f907.jpg",
       "options": []
     },
     {
@@ -817,8 +710,8 @@
       "nameFa": "موهیتو",
       "description": "Lime, mint and soda over crushed ice. Alcohol-free.",
       "price": 120000,
-      "emoji": "🍹",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/cb32401ecee6e320.jpg",
       "options": []
     },
     {
@@ -829,8 +722,8 @@
       "nameFa": "سیب‌زمینی سرخ‌کرده",
       "description": "Crispy golden fries with sea salt.",
       "price": 110000,
-      "emoji": "🍟",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/cb6b8f87cbc89d9b.jpg",
       "popular": true,
       "options": [
         "portion",
@@ -845,8 +738,8 @@
       "nameFa": "سیب‌زمینی پنیری",
       "description": "Fries smothered in melted cheese sauce.",
       "price": 150000,
-      "emoji": "🧀",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/cd16759864ae64a8.jpg",
       "options": [
         "portion",
         "dips"
@@ -860,8 +753,8 @@
       "nameFa": "حلقه‌های پیاز",
       "description": "Thick-cut onion rings in a crunchy golden crust.",
       "price": 120000,
-      "emoji": "🧅",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/d56772e80eb0526b.jpg",
       "options": [
         "dips"
       ]
@@ -874,8 +767,8 @@
       "nameFa": "ناگت مرغ",
       "description": "Crispy chicken nuggets, served hot.",
       "price": 175000,
-      "emoji": "🍗",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/da03f6bfeb4e994f.jpg",
       "options": [
         "dips"
       ]
@@ -888,8 +781,8 @@
       "nameFa": "نان سیر",
       "description": "Toasted baguette with garlic butter and herbs.",
       "price": 105000,
-      "emoji": "🥖",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/dca80d126e0e018b.jpg",
       "options": []
     },
     {
@@ -900,8 +793,8 @@
       "nameFa": "سالاد کلم",
       "description": "Creamy cabbage and carrot slaw.",
       "price": 70000,
-      "emoji": "🥗",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/dd5cab7c9dcffd64.jpg",
       "options": []
     },
     {
@@ -912,8 +805,8 @@
       "nameFa": "سالاد شیرازی",
       "description": "Diced cucumber, tomato and onion with lime and dried mint.",
       "price": 85000,
-      "emoji": "🥗",
-      "image": "",
+      "emoji": "",
+      "image": "https://cdn.snappfood.ir/641x641/cdn/49/72/38/product_image/vendor/de0536e7fbb490af.jpg",
       "options": []
     }
   ]
