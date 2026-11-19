@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>هگه | منو و سفارش آنلاین</title>
+  <title>هگه | HEGGE — منو و سفارش آنلاین</title>
   <meta name="description" content="منوی هگه — پیتزا، برگر و ساندویچ. سفارش آنلاین با تحویل یا دریافت حضوری. پرداخت نقدی.">
   <meta name="theme-color" content="#c8ff00">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%95%3C/text%3E%3C/svg%3E">
@@ -202,6 +202,22 @@
       #print-area { display: block !important; }
       #print-area .receipt { width: 72mm; margin: 0; padding: 2mm 2mm 0; }
     }
+  
+    .bg-ticker-wrap {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      overflow: hidden; opacity: 0.07;
+      display: flex; flex-direction: column; justify-content: space-around;
+      transform: rotate(-4deg) scale(1.15);
+    }
+    .bg-ticker {
+      white-space: nowrap; font-size: clamp(42px, 10vw, 96px); font-weight: 900;
+      color: #141510; text-transform: uppercase; display: flex; gap: 2.5rem;
+      animation: ticker 24s linear infinite; user-select: none;
+    }
+    .bg-ticker.reverse { animation: tickerRev 28s linear infinite; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes tickerRev { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
   </style>
 
   <script defer src="app.js"></script>
@@ -213,7 +229,23 @@
       @keydown.escape.window="closeTop()"
       class="font-sans antialiased">
 
-<div id="screen">
+<div class="bg-ticker-wrap" aria-hidden="true">
+  <div class="bg-ticker">
+    <span>HEGGE</span><span>PIZZA</span><span>BURGER</span><span>GOOD FOOD</span><span>GOOD MOOD</span>
+    <span>HEGGE</span><span>PIZZA</span><span>BURGER</span><span>GOOD FOOD</span><span>GOOD MOOD</span>
+  </div>
+  <div class="bg-ticker reverse">
+    <span>هگه</span><span>پیتزا</span><span>برگر</span><span>ساندویچ</span><span>داغ و سریع</span>
+    <span>هگه</span><span>پیتزا</span><span>برگر</span><span>ساندویچ</span><span>داغ و سریع</span>
+  </div>
+  <div class="bg-ticker">
+    <span>HEGGE</span><span>ORDER NOW</span><span>CASH ONLY</span><span>HOT & FAST</span>
+    <span>HEGGE</span><span>ORDER NOW</span><span>CASH ONLY</span><span>HOT & FAST</span>
+  </div>
+</div>
+
+
+<div id="screen" class="relative z-10">
 
   <div id="top" class="sticky top-0 z-40">
 
@@ -291,10 +323,10 @@
           <span class="text-orange">فک نکن!</span>
         </h1>
         <p class="mt-3 max-w-md text-[15px] font-semibold leading-relaxed text-ink/80">
-          پیتزا، برگر و ساندویچ. تحویل یا دریافت حضوری. فقط نقدی.
+          مغز شلوغه؟ بی‌خیال تحلیل منو. اینجا بدون داستان، فقط غذای خوب. منو رو ببین، حالشو ببر.
         </p>
         <div class="mt-6 flex flex-wrap items-center gap-3">
-          <a href="#menu" class="btn-brutal inline-flex items-center gap-2 px-5 py-2.5 text-sm">مشاهده منو ↓</a>
+          <a href="#menu" class="btn-brutal inline-flex items-center gap-2 px-5 py-2.5 text-sm">مشاهده غذاها ↓</a>
           <span class="text-sm font-bold text-ink/70">تحویل · حضوری · نقدی</span>
         </div>
       </div>
@@ -380,14 +412,18 @@
     </template>
   </main>
 
-  <footer class="border-t-4 border-ink bg-paper">
-    <div class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-8 pb-40 text-sm font-medium text-ink/70 sm:flex-row sm:items-center sm:justify-between">
+  <footer class="border-t-4 border-ink bg-ink text-paper">
+    <div class="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 pb-40 text-sm sm:flex-row sm:items-start sm:justify-between">
       <div>
-        <p class="font-black text-ink" x-text="restaurant.nameFa || restaurant.name"></p>
-        <p x-text="restaurant.address"></p>
-        <p><span x-text="restaurant.hours"></span> · <a :href="'tel:' + (restaurant.phone || '').replace(/\s/g, '')" class="font-bold text-orange hover:underline" x-text="restaurant.phone"></a></p>
+        <p class="text-lg font-black text-acid">هگه · HEGGE</p>
+        <p class="mt-1 font-medium text-paper/80" x-text="restaurant.address"></p>
+        <p class="font-medium text-paper/80" x-text="restaurant.hours"></p>
+        <p class="mt-1"><a :href="'tel:' + (restaurant.phone || '').replace(/\s/g, '')" class="font-bold text-orange hover:underline" x-text="restaurant.phone"></a></p>
       </div>
-      <button type="button" @click="openConfig()" class="self-start text-xs font-bold text-ink/50 underline-offset-2 hover:text-ink hover:underline sm:self-auto">تنظیمات پرسنل</button>
+      <div class="flex flex-col gap-2 text-sm font-bold">
+        <a href="https://www.instagram.com/hege_pizza" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-paper hover:text-acid">◎ اینستاگرام · @hege_pizza</a>
+        <a href="https://snappfood.ir/restaurant/menu/%D9%81%D8%B3%D8%AA_%D9%81%D9%88%D8%AF_%D9%87%DA%AF%D9%87-r-44eojj/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-paper hover:text-acid">◎ اسنپ‌فود · سفارش آنلاین</a>
+      </div>
     </div>
   </footer>
 
