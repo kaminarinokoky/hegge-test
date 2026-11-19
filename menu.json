@@ -1,0 +1,396 @@
+{
+  "meta": {
+    "version": "2026-11-19",
+    "restaurant": {
+      "name": "Hegeh Fast Food",
+      "nameFa": "فست فود هگه",
+      "tagline": "Pizza, burgers & sandwiches — hot, fast, fresh.",
+      "orderPrefix": "HG",
+      "phone": "+98 00 0000 0000",
+      "address": "Your street address, City",
+      "hours": "Daily 11:00 – 23:30"
+    },
+    "currency": { "symbol": "Toman", "locale": "en-US" },
+    "fees": { "delivery": 45000 },
+    "limits": { "maxQtyPerLine": 20 },
+    "pos": {
+      "baseUrl": "http://localhost:8080",
+      "healthPath": "/health",
+      "orderPath": "/api/orders",
+      "timeoutMs": 4000,
+      "pollMs": 30000
+    }
+  },
+
+  "categories": [
+    { "id": "pizza", "name": "Pizza", "nameFa": "پیتزا", "icon": "🍕" },
+    { "id": "burgers", "name": "Burgers", "nameFa": "برگر", "icon": "🍔" },
+    { "id": "sandwiches", "name": "Sandwiches", "nameFa": "ساندویچ", "icon": "🥪" },
+    { "id": "drinks", "name": "Drinks", "nameFa": "نوشیدنی", "icon": "🥤" },
+    { "id": "sides", "name": "Sides", "nameFa": "کنار غذا", "icon": "🍟" }
+  ],
+
+  "optionGroups": {
+    "pizzaSize": {
+      "label": "Size",
+      "type": "single",
+      "choices": [
+        { "id": "s", "label": "Small (24 cm)", "price": 0 },
+        { "id": "m", "label": "Medium (30 cm)", "price": 90000, "default": true },
+        { "id": "l", "label": "Large (36 cm)", "price": 170000 }
+      ]
+    },
+    "crust": {
+      "label": "Crust",
+      "type": "single",
+      "choices": [
+        { "id": "classic", "label": "Classic hand-tossed", "price": 0, "default": true },
+        { "id": "thin", "label": "Thin & crispy", "price": 0 },
+        { "id": "pan", "label": "Pan (thick & fluffy)", "price": 25000 },
+        { "id": "stuffed", "label": "Cheese-stuffed crust", "price": 55000 }
+      ]
+    },
+    "pizzaCheese": {
+      "label": "Extra cheese",
+      "type": "single",
+      "choices": [
+        { "id": "none", "label": "No extra", "price": 0, "default": true, "none": true },
+        { "id": "extra", "label": "Extra cheese", "price": 40000 },
+        { "id": "double", "label": "Double cheese", "price": 75000 }
+      ]
+    },
+    "pizzaSauce": {
+      "label": "Sauce",
+      "type": "single",
+      "choices": [
+        { "id": "tomato", "label": "Classic tomato", "price": 0, "default": true },
+        { "id": "bbq", "label": "Smoky BBQ", "price": 0 },
+        { "id": "white", "label": "Creamy white garlic", "price": 0 }
+      ]
+    },
+    "spice": {
+      "label": "Spice level",
+      "type": "single",
+      "choices": [
+        { "id": "mild", "label": "Mild", "price": 0, "default": true },
+        { "id": "medium", "label": "Medium 🌶", "price": 0 },
+        { "id": "hot", "label": "Hot 🌶🌶", "price": 0 },
+        { "id": "inferno", "label": "Inferno 🌶🌶🌶", "price": 0 }
+      ]
+    },
+    "cheeseSlice": {
+      "label": "Extra cheese",
+      "type": "single",
+      "choices": [
+        { "id": "none", "label": "No extra", "price": 0, "default": true, "none": true },
+        { "id": "slice", "label": "Extra cheese slice", "price": 25000 },
+        { "id": "double", "label": "Double cheese slices", "price": 45000 }
+      ]
+    },
+    "sauces": {
+      "label": "Sauces",
+      "hint": "Pick up to 2 — free",
+      "type": "multi",
+      "max": 2,
+      "choices": [
+        { "id": "ketchup", "label": "Ketchup", "price": 0 },
+        { "id": "mayo", "label": "Mayo", "price": 0 },
+        { "id": "garlic", "label": "Garlic sauce", "price": 0 },
+        { "id": "bbq", "label": "BBQ", "price": 0 },
+        { "id": "chili", "label": "Hot chili", "price": 0 },
+        { "id": "mustard", "label": "Mustard", "price": 0 }
+      ]
+    },
+    "addons": {
+      "label": "Add-ons",
+      "hint": "Pick up to 4",
+      "type": "multi",
+      "max": 4,
+      "choices": [
+        { "id": "patty", "label": "Extra patty", "price": 120000 },
+        { "id": "mushrooms", "label": "Grilled mushrooms", "price": 30000 },
+        { "id": "jalapeno", "label": "Jalapeños", "price": 20000 },
+        { "id": "egg", "label": "Fried egg", "price": 25000 },
+        { "id": "pickles", "label": "Extra pickles", "price": 0 }
+      ]
+    },
+    "combo": {
+      "label": "Make it a combo",
+      "hint": "Regular fries + a soft drink",
+      "type": "single",
+      "choices": [
+        { "id": "none", "label": "Just the sandwich", "price": 0, "default": true, "none": true },
+        { "id": "combo", "label": "Combo: fries + soft drink", "price": 110000 }
+      ]
+    },
+    "portion": {
+      "label": "Portion",
+      "type": "single",
+      "choices": [
+        { "id": "regular", "label": "Regular", "price": 0, "default": true },
+        { "id": "large", "label": "Large", "price": 55000 }
+      ]
+    },
+    "dips": {
+      "label": "Dips",
+      "hint": "Pick up to 3",
+      "type": "multi",
+      "max": 3,
+      "choices": [
+        { "id": "ketchup", "label": "Ketchup", "price": 0 },
+        { "id": "garlic-mayo", "label": "Garlic mayo", "price": 15000 },
+        { "id": "ranch", "label": "Ranch", "price": 15000 },
+        { "id": "bbq", "label": "BBQ", "price": 15000 },
+        { "id": "chili", "label": "Hot chili", "price": 15000 }
+      ]
+    }
+  },
+
+  "items": [
+    {
+      "id": "margherita", "sku": "PZ-01", "category": "pizza",
+      "name": "Margherita", "nameFa": "پیتزا مارگاریتا",
+      "description": "Tomato sauce, mozzarella and fresh basil on hand-tossed dough.",
+      "price": 245000, "emoji": "🍕", "image": "",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+    {
+      "id": "pepperoni", "sku": "PZ-02", "category": "pizza",
+      "name": "Pepperoni", "nameFa": "پیتزا پپرونی",
+      "description": "Generous pepperoni slices over bubbling mozzarella.",
+      "price": 295000, "emoji": "🍕", "image": "", "popular": true, "badge": "Popular",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+    {
+      "id": "hegeh-special", "sku": "PZ-03", "category": "pizza",
+      "name": "Hegeh Special", "nameFa": "پیتزا مخصوص هگه",
+      "description": "Beef, pepperoni, mushrooms, bell peppers, olives and extra cheese.",
+      "price": 325000, "emoji": "🍕", "image": "", "popular": true, "badge": "Signature",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+    {
+      "id": "chicken-mushroom", "sku": "PZ-04", "category": "pizza",
+      "name": "Chicken & Mushroom", "nameFa": "پیتزا مرغ و قارچ",
+      "description": "Grilled chicken, mushrooms and mozzarella with a creamy base.",
+      "price": 315000, "emoji": "🍕", "image": "",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+    {
+      "id": "veggie", "sku": "PZ-05", "category": "pizza",
+      "name": "Garden Veggie", "nameFa": "پیتزا سبزیجات",
+      "description": "Mushrooms, bell peppers, olives, corn and onions.",
+      "price": 265000, "emoji": "🥦", "image": "",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+    {
+      "id": "bbq-chicken", "sku": "PZ-06", "category": "pizza",
+      "name": "BBQ Chicken", "nameFa": "پیتزا مرغ باربیکیو",
+      "description": "Smoky BBQ chicken, red onion and mozzarella.",
+      "price": 320000, "emoji": "🍕", "image": "",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+    {
+      "id": "spicy-beef", "sku": "PZ-07", "category": "pizza",
+      "name": "Spicy Beef & Jalapeño", "nameFa": "پیتزا گوشت و هالوپینو",
+      "description": "Seasoned beef, jalapeños, red onion and chili flakes.",
+      "price": 335000, "emoji": "🌶️", "image": "", "badge": "Spicy",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+    {
+      "id": "four-cheese", "sku": "PZ-08", "category": "pizza",
+      "name": "Four Cheese", "nameFa": "پیتزا چهار پنیر",
+      "description": "Mozzarella, cheddar, parmesan and cream cheese.",
+      "price": 340000, "emoji": "🧀", "image": "",
+      "options": ["pizzaSize", "crust", "pizzaCheese", "pizzaSauce", "spice"]
+    },
+
+    {
+      "id": "classic-burger", "sku": "BG-01", "category": "burgers",
+      "name": "Classic Burger", "nameFa": "همبرگر کلاسیک",
+      "description": "Flame-grilled beef patty, lettuce, tomato, onion and house sauce.",
+      "price": 235000, "emoji": "🍔", "image": "",
+      "options": ["cheeseSlice", "sauces", "addons", "spice", "combo"]
+    },
+    {
+      "id": "cheeseburger", "sku": "BG-02", "category": "burgers",
+      "name": "Cheeseburger", "nameFa": "چیزبرگر",
+      "description": "Our classic with melted cheddar and pickles.",
+      "price": 255000, "emoji": "🍔", "image": "", "popular": true, "badge": "Popular",
+      "options": ["cheeseSlice", "sauces", "addons", "spice", "combo"]
+    },
+    {
+      "id": "double-burger", "sku": "BG-03", "category": "burgers",
+      "name": "Double Beef Burger", "nameFa": "همبرگر دوبل",
+      "description": "Two beef patties, double cheddar, caramelized onion.",
+      "price": 335000, "emoji": "🍔", "image": "",
+      "options": ["cheeseSlice", "sauces", "addons", "spice", "combo"]
+    },
+    {
+      "id": "crispy-chicken-burger", "sku": "BG-04", "category": "burgers",
+      "name": "Crispy Chicken Burger", "nameFa": "برگر مرغ سوخاری",
+      "description": "Golden fried chicken fillet, lettuce and garlic mayo.",
+      "price": 245000, "emoji": "🍗", "image": "", "popular": true,
+      "options": ["cheeseSlice", "sauces", "addons", "spice", "combo"]
+    },
+    {
+      "id": "mushroom-burger", "sku": "BG-05", "category": "burgers",
+      "name": "Mushroom Cheese Burger", "nameFa": "برگر قارچ و پنیر",
+      "description": "Beef patty, sautéed mushrooms and melted Swiss-style cheese.",
+      "price": 265000, "emoji": "🍔", "image": "",
+      "options": ["cheeseSlice", "sauces", "addons", "spice", "combo"]
+    },
+    {
+      "id": "jalapeno-burger", "sku": "BG-06", "category": "burgers",
+      "name": "Jalapeño Burger", "nameFa": "برگر هالوپینو",
+      "description": "Beef patty, jalapeños, pepper-jack cheese and chili sauce.",
+      "price": 275000, "emoji": "🌶️", "image": "", "badge": "Spicy",
+      "options": ["cheeseSlice", "sauces", "addons", "spice", "combo"]
+    },
+
+    {
+      "id": "chicken-fillet-sandwich", "sku": "SW-01", "category": "sandwiches",
+      "name": "Chicken Fillet Sandwich", "nameFa": "ساندویچ فیله مرغ",
+      "description": "Marinated grilled chicken fillet, lettuce, tomato and garlic sauce.",
+      "price": 215000, "emoji": "🥪", "image": "", "popular": true,
+      "options": ["cheeseSlice", "sauces", "spice", "combo"]
+    },
+    {
+      "id": "escalope-sandwich", "sku": "SW-02", "category": "sandwiches",
+      "name": "Chicken Escalope Sandwich", "nameFa": "ساندویچ اسکالوپ مرغ",
+      "description": "Crispy breaded chicken, pickles, lettuce and mayo.",
+      "price": 205000, "emoji": "🥪", "image": "",
+      "options": ["cheeseSlice", "sauces", "spice", "combo"]
+    },
+    {
+      "id": "steak-sandwich", "sku": "SW-03", "category": "sandwiches",
+      "name": "Beef Steak Sandwich", "nameFa": "ساندویچ استیک گوشت",
+      "description": "Sliced seared beef, grilled onions, peppers and melted cheese.",
+      "price": 285000, "emoji": "🥩", "image": "",
+      "options": ["cheeseSlice", "sauces", "spice", "combo"]
+    },
+    {
+      "id": "hotdog", "sku": "SW-04", "category": "sandwiches",
+      "name": "Special Hot Dog", "nameFa": "هات داگ مخصوص",
+      "description": "Grilled sausage in a soft roll with onions, pickles and cheese.",
+      "price": 175000, "emoji": "🌭", "image": "",
+      "options": ["cheeseSlice", "sauces", "spice", "combo"]
+    },
+    {
+      "id": "falafel-sandwich", "sku": "SW-05", "category": "sandwiches",
+      "name": "Falafel Sandwich", "nameFa": "ساندویچ فلافل",
+      "description": "Crispy falafel, tomato, pickles and tahini-style sauce.",
+      "price": 120000, "emoji": "🧆", "image": "",
+      "options": ["sauces", "spice", "combo"]
+    },
+    {
+      "id": "club-sandwich", "sku": "SW-06", "category": "sandwiches",
+      "name": "Club Sandwich", "nameFa": "کلاب ساندویچ",
+      "description": "Triple-decker toasted bread with chicken, egg, lettuce and tomato.",
+      "price": 245000, "emoji": "🥪", "image": "",
+      "options": ["sauces", "combo"]
+    },
+    {
+      "id": "coldcut-sandwich", "sku": "SW-07", "category": "sandwiches",
+      "name": "Cold-Cut Sandwich", "nameFa": "ساندویچ کالباس",
+      "description": "Sliced cold cuts, cheese, pickles and tomato in a baguette.",
+      "price": 160000, "emoji": "🥖", "image": "",
+      "options": ["cheeseSlice", "sauces", "spice", "combo"]
+    },
+
+    {
+      "id": "cola", "sku": "DR-01", "category": "drinks",
+      "name": "Cola (330 ml)", "nameFa": "نوشابه کولا",
+      "description": "Ice-cold canned cola.",
+      "price": 45000, "emoji": "🥤", "image": "", "options": []
+    },
+    {
+      "id": "orange-soda", "sku": "DR-02", "category": "drinks",
+      "name": "Orange Soda (330 ml)", "nameFa": "نوشابه پرتقالی",
+      "description": "Sparkling orange soda, served cold.",
+      "price": 45000, "emoji": "🍊", "image": "", "options": []
+    },
+    {
+      "id": "lemon-soda", "sku": "DR-03", "category": "drinks",
+      "name": "Lemon-Lime Soda (330 ml)", "nameFa": "نوشابه لیمویی",
+      "description": "Crisp lemon-lime soda, served cold.",
+      "price": 45000, "emoji": "🍋", "image": "", "options": []
+    },
+    {
+      "id": "doogh", "sku": "DR-04", "category": "drinks",
+      "name": "Doogh (330 ml)", "nameFa": "دوغ",
+      "description": "Traditional salted yogurt drink with mint.",
+      "price": 40000, "emoji": "🥛", "image": "", "options": []
+    },
+    {
+      "id": "water", "sku": "DR-05", "category": "drinks",
+      "name": "Mineral Water (500 ml)", "nameFa": "آب معدنی",
+      "description": "Still mineral water.",
+      "price": 20000, "emoji": "💧", "image": "", "options": []
+    },
+    {
+      "id": "iced-tea", "sku": "DR-06", "category": "drinks",
+      "name": "Iced Tea (330 ml)", "nameFa": "چای سرد",
+      "description": "Peach iced tea, lightly sweet.",
+      "price": 55000, "emoji": "🧃", "image": "", "options": []
+    },
+    {
+      "id": "lemonade", "sku": "DR-07", "category": "drinks",
+      "name": "Fresh Lemonade", "nameFa": "لیموناد",
+      "description": "Freshly squeezed lemon, mint and ice.",
+      "price": 85000, "emoji": "🍋", "image": "", "options": []
+    },
+    {
+      "id": "mojito", "sku": "DR-08", "category": "drinks",
+      "name": "Virgin Mojito", "nameFa": "موهیتو",
+      "description": "Lime, mint and soda over crushed ice. Alcohol-free.",
+      "price": 120000, "emoji": "🍹", "image": "", "options": []
+    },
+
+    {
+      "id": "fries", "sku": "SD-01", "category": "sides",
+      "name": "French Fries", "nameFa": "سیب‌زمینی سرخ‌کرده",
+      "description": "Crispy golden fries with sea salt.",
+      "price": 110000, "emoji": "🍟", "image": "", "popular": true,
+      "options": ["portion", "dips"]
+    },
+    {
+      "id": "cheese-fries", "sku": "SD-02", "category": "sides",
+      "name": "Cheesy Fries", "nameFa": "سیب‌زمینی پنیری",
+      "description": "Fries smothered in melted cheese sauce.",
+      "price": 150000, "emoji": "🧀", "image": "",
+      "options": ["portion", "dips"]
+    },
+    {
+      "id": "onion-rings", "sku": "SD-03", "category": "sides",
+      "name": "Onion Rings", "nameFa": "حلقه‌های پیاز",
+      "description": "Thick-cut onion rings in a crunchy golden crust.",
+      "price": 120000, "emoji": "🧅", "image": "",
+      "options": ["dips"]
+    },
+    {
+      "id": "nuggets", "sku": "SD-04", "category": "sides",
+      "name": "Chicken Nuggets (6 pcs)", "nameFa": "ناگت مرغ",
+      "description": "Crispy chicken nuggets, served hot.",
+      "price": 175000, "emoji": "🍗", "image": "",
+      "options": ["dips"]
+    },
+    {
+      "id": "garlic-bread", "sku": "SD-05", "category": "sides",
+      "name": "Garlic Bread", "nameFa": "نان سیر",
+      "description": "Toasted baguette with garlic butter and herbs.",
+      "price": 105000, "emoji": "🥖", "image": "", "options": []
+    },
+    {
+      "id": "coleslaw", "sku": "SD-06", "category": "sides",
+      "name": "Coleslaw", "nameFa": "سالاد کلم",
+      "description": "Creamy cabbage and carrot slaw.",
+      "price": 70000, "emoji": "🥗", "image": "", "options": []
+    },
+    {
+      "id": "shirazi-salad", "sku": "SD-07", "category": "sides",
+      "name": "Shirazi Salad", "nameFa": "سالاد شیرازی",
+      "description": "Diced cucumber, tomato and onion with lime and dried mint.",
+      "price": 85000, "emoji": "🥗", "image": "", "options": []
+    }
+  ]
+}
