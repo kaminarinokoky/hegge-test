@@ -61,6 +61,12 @@
     .replace(/[\u06F0-\u06F9]/g, (d) => String(d.charCodeAt(0) - 0x06F0))
     .replace(/[\u0660-\u0669]/g, (d) => String(d.charCodeAt(0) - 0x0660));
 
+  /** Search key: ASCII digits, Persian ی/ک instead of Arabic ي/ك, zero-width marks → space. */
+  const normFa = (s) => toAsciiDigits(s)
+    .replace(/\u064A/g, '\u06CC').replace(/\u0643/g, '\u06A9')
+    .replace(/[\u200C\u200E\u200F]/g, ' ')
+    .replace(/\s+/g, ' ').trim().toLowerCase();
+
   const normalizePhone = (s) => toAsciiDigits(s).replace(/[\s\-().]/g, '');
   const isValidPhone = (s) => /^\+?\d{8,15}$/.test(s);
 
@@ -207,41 +213,41 @@
    * The bridge must send CORS headers (Access-Control-Allow-Origin) for this page's origin.
    */
   async function probeHealth(cfg, diagnose) {
-    if (cfg.simulate === 'offline') return { online: false, reason: 'Simulated offline (staff setting)' };
+    if (cfg.simulate === 'offline') return { online: false, reason: 'حالت آفلاین شبیه‌سازی شده (تنظیمات پرسنل)' };
     if (cfg.simulate === 'online') return { online: true, latency: 0, simulated: true };
 
     const base = normalizeBaseUrl(cfg.baseUrl);
-    if (!base) return { online: false, reason: 'No valid POS address configured' };
+    if (!base) return { online: false, reason: 'آدرس POS تنظیم نشده یا نامعتبر است' };
     const url = joinUrl(base, cfg.healthPath);
 
     if (mixedContentBlocked(url)) {
       return {
         online: false,
-        reason: 'Blocked by the browser: an https:// page cannot call a plain http:// address ' +
-          '(only localhost is exempt). Expose the POS bridge through an https:// URL.',
+        reason: 'مرورگر مسدود کرد: صفحه https نمی‌تواند به آدرس http ساده وصل شود ' +
+          '(فقط localhost مستثناست). پل POS را با آدرس https در دسترس بگذار.',
       };
     }
 
     try {
       const r = await timedFetch(url, { method: 'GET', mode: 'cors' }, cfg.timeoutMs);
-      if (!r.res.ok) return { online: false, reason: `POS answered HTTP ${r.res.status}` };
+      if (!r.res.ok) return { online: false, reason: `POS با کد HTTP ${r.res.status} پاسخ داد` };
       let body = null;
       try { body = JSON.parse(r.text); } catch (_) { /* plain "OK" is fine */ }
       if (body && (body.open === false || String(body.status).toLowerCase() === 'closed')) {
-        return { online: false, reason: 'POS reports online ordering is closed' };
+        return { online: false, reason: 'POS اعلام کرده سفارش آنلاین بسته است' };
       }
       return { online: true, latency: r.ms, body };
     } catch (err) {
       if (err && err.name === 'AbortError') {
-        return { online: false, reason: `No answer within ${cfg.timeoutMs} ms` };
+        return { online: false, reason: `تا ${cfg.timeoutMs} میلی‌ثانیه پاسخی نیامد` };
       }
       if (diagnose) {
         try {
           await timedFetch(url, { method: 'GET', mode: 'no-cors' }, cfg.timeoutMs);
-          return { online: false, reason: 'The server is reachable but blocks this page (missing CORS headers).' };
+          return { online: false, reason: 'سرور در دسترس است ولی این صفحه را مسدود می‌کند (هدرهای CORS تنظیم نشده).' };
         } catch (_) { /* fall through */ }
       }
-      return { online: false, reason: 'Unreachable (offline, wrong address, CORS or blocked request)' };
+      return { online: false, reason: 'در دسترس نیست (خاموش، آدرس اشتباه، CORS یا درخواست مسدود)' };
     }
   }
 
@@ -308,11 +314,11 @@
       <div class="r-item">
         <div class="r-row">
           <span class="r-qty">${l.qty}&times;</span>
-          <span class="r-name">${esc(l.name)}</span>
+          <span class="r-name" dir="auto">${esc(l.name)}</span>
           ${kitchen ? '' : `<span class="r-amt">${money(l.lineTotal)}</span>`}
         </div>
-        ${l.mods.map((m) => `<div class="r-mod">+ ${esc(m.group)}: ${esc(m.label)}</div>`).join('')}
-        ${l.note ? `<div class="r-mod r-note">NOTE: ${esc(l.note)}</div>` : ''}
+        ${l.mods.map((m) => `<div class="r-mod" dir="auto">+ ${esc(m.group)}: ${esc(m.label)}</div>`).join('')}
+        ${l.note ? `<div class="r-mod r-note" dir="auto">NOTE: ${esc(l.note)}</div>` : ''}
       </div>`).join('');
 
     const field = (label, value) => value
@@ -408,7 +414,7 @@
 
       fulfillment: 'delivery',
       form: { name: '', phone: '', address: '', deliveryNotes: '', pickupTime: '', remember: true },
-      pickupPresets: ['As soon as ready', 'In 15 minutes', 'In 30 minutes', 'In 1 hour'],
+      pickupPresets: ['در اولین فرصت', '۱۵ دقیقه دیگه', '۳۰ دقیقه دیگه', '۱ ساعت دیگه'],
       errors: {},
       submitting: false,
       submitError: '',
@@ -427,6 +433,7 @@
       lastOrder: null,
       hasLast: false,
       toastMsg: '',
+      logoFailed: false,
 
       /* ----------------------------- lifecycle --------------------------- */
       async init() {
@@ -457,8 +464,8 @@
         } catch (err) {
           console.error('[menu] load failed', err);
           this.loadError = location.protocol === 'file:'
-            ? 'menu.json cannot be loaded when the page is opened from disk. Serve the folder (for example "python -m http.server") or deploy it to GitHub Pages.'
-            : 'We could not load the menu. Please check your connection and try again.';
+            ? 'وقتی صفحه از روی دیسک باز می‌شود، menu.json لود نمی‌شود. پوشه را روی یک سرور اجرا کن (مثلاً python -m http.server) یا روی GitHub Pages بگذار.'
+            : 'اتصال اینترنتت را چک کن و دوباره امتحان کن.';
         } finally {
           this.loading = false;
         }
@@ -472,10 +479,10 @@
 
         const base = normalizeBaseUrl(p.get('pos_ip'), p.get('pos_port'));
         if (!base) {
-          this.toast('Ignored ?pos_ip — not a valid address');
+          this.toast('pos_ip معتبر نیست و نادیده گرفته شد');
         } else if (!isPrivateHost(new URL(base).hostname)) {
           // Safety: a crafted link must not be able to redirect customers' orders to a public server.
-          this.toast('?pos_ip only accepts localhost / private-network addresses. Use Staff settings for a public URL.', 6000);
+          this.toast('pos_ip فقط آدرس localhost و شبکه داخلی را می‌پذیرد. برای آدرس عمومی از تنظیمات پرسنل استفاده کن.', 6000);
         } else {
           this.urlOverride = base; // session only — never written to localStorage
         }
@@ -484,7 +491,7 @@
       /* ------------------------------ getters ---------------------------- */
       get restaurant() {
         return (this.menu && this.menu.meta && this.menu.meta.restaurant) ||
-          { name: 'Hegeh Fast Food', nameFa: 'فست فود هگه', phone: '', address: '', hours: '' };
+          { name: 'HEGGE', nameFa: 'هگه', phone: '', address: '', hours: '' };
       },
       get categories() { return this.menu ? this.menu.categories : []; },
       get maxQty() { return (this.menu && this.menu.meta.limits && this.menu.meta.limits.maxQtyPerLine) || 20; },
@@ -512,9 +519,9 @@
 
       get visibleGroups() {
         if (!this.menu) return [];
-        const q = this.search.trim().toLowerCase();
-        const match = (i) => !q || i.name.toLowerCase().includes(q) ||
-          (i.description || '').toLowerCase().includes(q) || (i.nameFa || '').includes(q);
+        const q = normFa(this.search);
+        const match = (i) => !q ||
+          normFa([i.name, i.nameFa, i.description].filter(Boolean).join(' ')).includes(q);
         return this.menu.categories
           .filter((c) => this.activeCategory === 'all' || c.id === this.activeCategory)
           .map((c) => ({ category: c, items: this.menu.items.filter((i) => i.category === c.id && match(i)) }))
@@ -561,6 +568,20 @@
       },
       get cur() { return (this.menu && this.menu.meta.currency && this.menu.meta.currency.symbol) || ''; },
       hasOptions(item) { return (item.options || []).length > 0; },
+      /** Opens the customizer: option groups and/or the free-text request field. */
+      customizable(item) { return this.hasOptions(item) || !!item.allowNote; },
+      itemLabel(item) { return (item && (item.nameFa || item.name)) || ''; },
+      /** srcset for SnappFood-style URLs, where one file exists at two sizes. Empty when meta.images is absent. */
+      imgSet(item) {
+        const c = this.menu && this.menu.meta.images;
+        if (!c || !item.image || item.imgSmallOnly || !item.image.includes(c.small)) return '';
+        return `${item.image} ${c.smallW}w, ${item.image.replace(c.small, c.large)} ${c.largeW}w`;
+      },
+      /** Large file failed: retry with the small one. The small one failed too: show the placeholder. */
+      imgError(item) {
+        if (this.imgSet(item)) item.imgSmallOnly = true;
+        else item.imgFailed = true;
+      },
       qtyInCart(itemId) { return this.cart.filter((l) => l.itemId === itemId).reduce((s, l) => s + l.qty, 0); },
       simpleKey(item) { return lineKey(item.id, {}, ''); },
       fromPrice(item) { return this.hasOptions(item) && (item.options || []).some((g) => g === 'pizzaSize'); },
@@ -584,9 +605,9 @@
       /* --------------------------- customizer ---------------------------- */
       openItem(item) {
         if (!item || item.soldOut) return;
-        if (!this.hasOptions(item)) {
+        if (!this.customizable(item)) {
           this.addLine(item, {}, 1, '');
-          this.toast(`${item.name} added`);
+          this.toast(`«${this.itemLabel(item)}» به سبد اضافه شد`);
           return;
         }
         this.cz = { open: true, item, selections: defaultSelections(this.menu, item), qty: 1, note: '' };
@@ -596,7 +617,7 @@
         const cur = this.cz.selections[g.id] || [];
         if (g.type === 'multi') {
           if (cur.includes(c.id)) this.cz.selections[g.id] = cur.filter((x) => x !== c.id);
-          else if (g.max && cur.length >= g.max) this.toast(`You can pick up to ${g.max} for “${g.label}”`);
+          else if (g.max && cur.length >= g.max) this.toast(`برای «${g.label}» حداکثر ${g.max} مورد می‌تونی انتخاب کنی`);
           else this.cz.selections[g.id] = [...cur, c.id];
         } else {
           this.cz.selections[g.id] = [c.id];
@@ -609,7 +630,7 @@
         if (!item) return;
         this.addLine(item, this.cz.selections, this.cz.qty, this.cz.note.trim().slice(0, 80));
         this.cz.open = false;
-        this.toast(`${item.name} added to your order`);
+        this.toast(`«${this.itemLabel(item)}» به سبد اضافه شد`);
       },
 
       /* ------------------------------- cart ------------------------------ */
@@ -659,11 +680,11 @@
         }
         this.cart = out;
         store.set(LS.cart, out);
-        if (dropped) this.toast('Some items in your saved cart are no longer on the menu.', 4000);
+        if (dropped) this.toast('بعضی از آیتم‌های سبد قبلی‌ات دیگه توی منو نیستن.', 4000);
       },
 
       /* ------------------------------ drawer ----------------------------- */
-      openCart() { this.drawerView = 'cart'; this.drawerOpen = true; this.focusRef('drawerClose'); },
+      openCart() { this.toastMsg = ''; this.drawerView = 'cart'; this.drawerOpen = true; this.focusRef('drawerClose'); },
       closeCart() { this.drawerOpen = false; },
       goCheckout() {
         if (!this.canCheckout) return;
@@ -685,12 +706,12 @@
       validateForm() {
         const f = this.form;
         const e = {};
-        if (f.name.trim().length < 2) e.name = 'Please enter your name';
-        if (!isValidPhone(normalizePhone(f.phone))) e.phone = 'Enter a valid phone number (digits only)';
+        if (f.name.trim().length < 2) e.name = 'اسمت رو بنویس';
+        if (!isValidPhone(normalizePhone(f.phone))) e.phone = 'یه شماره تماس معتبر بنویس (فقط عدد)';
         if (this.fulfillment === 'delivery') {
-          if (f.address.trim().length < 8) e.address = 'Please enter your full delivery address';
+          if (f.address.trim().length < 8) e.address = 'آدرس کامل تحویل رو بنویس';
         } else if (!f.pickupTime.trim()) {
-          e.pickupTime = 'Tell us when you plan to pick it up';
+          e.pickupTime = 'بنویس کی میای تحویل بگیری';
         }
         this.errors = e;
         return Object.keys(e).length === 0;
@@ -796,9 +817,9 @@
           this.finishOrder(order);
         } catch (err) {
           console.error('[order] failed', err);
-          const phone = this.restaurant.phone ? ` or call us on ${this.restaurant.phone}` : '';
-          this.submitError = 'We could not reach the restaurant to send your order. ' +
-            `Nothing was submitted and your cart is safe — please try again in a moment${phone}.`;
+          const phone = this.restaurant.phone ? ` یا با ${this.restaurant.phone} تماس بگیر` : '';
+          this.submitError = 'سفارشت به رستوران نرسید. چیزی ثبت نشده و سبدت سر جاشه؛ ' +
+            `چند لحظه دیگه دوباره امتحان کن${phone}.`;
           this.checkPOS(); // re-evaluate open/closed right away
         } finally {
           this.submitting = false;
@@ -911,7 +932,7 @@
         };
         const r = await probeHealth(cfg, true);
         this.testResult = r.online
-          ? { ok: true, msg: `Online — answered in ${r.latency} ms` }
+          ? { ok: true, msg: `آنلاین · پاسخ در ${r.latency} میلی‌ثانیه` }
           : { ok: false, msg: r.reason };
         this.testing = false;
       },
@@ -920,7 +941,7 @@
         const d = this.draft;
         const base = normalizeBaseUrl(d.baseUrl);
         if (d.simulate === 'auto' && !base) {
-          this.testResult = { ok: false, msg: 'Enter a valid POS address, e.g. 192.168.1.20:8080 or https://pos.example.com' };
+          this.testResult = { ok: false, msg: 'یک آدرس معتبر برای POS بنویس، مثلاً 192.168.1.20:8080 یا https://pos.example.com' };
           return;
         }
         this.saved = {
@@ -936,7 +957,7 @@
         this.pos.status = 'checking';
         clearTimeout(pollTimer);
         this.startPOS();
-        this.toast('Settings saved');
+        this.toast('تنظیمات ذخیره شد');
       },
 
       resetConfig() {
@@ -946,7 +967,7 @@
         this.pos.status = 'checking';
         clearTimeout(pollTimer);
         this.startPOS();
-        this.toast('Settings reset to defaults');
+        this.toast('تنظیمات به حالت پیش‌فرض برگشت');
       },
     };
   }

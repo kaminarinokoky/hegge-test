@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>هگه | HEGGE — منو و سفارش آنلاین</title>
-  <meta name="description" content="منوی هگه — پیتزا، برگر و ساندویچ. سفارش آنلاین با تحویل یا دریافت حضوری. پرداخت .">
+  <meta name="description" content="منوی هگه — پیتزا، برگر و ساندویچ. سفارش آنلاین با تحویل یا دریافت حضوری. پرداخت نقدی.">
   <meta name="theme-color" content="#b22234">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%95%3C/text%3E%3C/svg%3E">
 
@@ -219,6 +219,8 @@
     .receipt .r-demo { font-weight: 700; font-size: 11px; margin-top: 4px; }
     .receipt .r-lbl { font-size: 10px; text-transform: uppercase; margin-top: 3px; }
     .receipt .r-val { font-weight: 600; white-space: pre-wrap; overflow-wrap: anywhere; }
+    /* Courier New has no Persian glyphs; name the fallback so the printed receipt does not depend on the device. */
+    .receipt .r-name, .receipt .r-mod, .receipt .r-val { font-family: 'Courier New', 'Vazirmatn', Tahoma, monospace; }
     .receipt .r-kitchen .r-qty { font-size: 18px; min-width: 34px; }
     .receipt .r-kitchen .r-name { font-size: 14px; }
     .receipt .r-kitchen .r-mod { font-size: 12px; padding-left: 40px; }
@@ -233,6 +235,7 @@
       html, body { background: #fff !important; color: #000 !important; min-height: 0 !important; overflow: visible !important; }
       #screen { display: none !important; }
       #print-area { display: block !important; }
+      .bg-ticker-wrap { display: none !important; }
       #print-area .receipt { width: 72mm; margin: 0; padding: 2mm 2mm 0; }
     }
   
@@ -309,7 +312,11 @@
     <header class="border-b-4 border-ink bg-paper">
       <div class="mx-auto flex h-16 max-w-5xl items-center gap-3 px-4">
         <a href="#top" class="flex min-w-0 items-center gap-2.5" aria-label="خانه">
-          <img src="https://scontent-cdg4-1.cdninstagram.com/v/t51.82787-19/898615321_18084135878542585_5003988125982315971_n.jpg?_nc_cat=110&_nc_map=urlgen_bucketless&ig_cache_key=GBnIjzX5RBz-bD9AAMPVcjWwvHFFbmNDAQAB0j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=Elh8rSOuvGAQ7kNvwH4Ua0u&_nc_oc=AdqX4zQbGno4hgAfZ4qDctnmthznGrLeXg8r4b_iG3sUxTddYqI5pYCBfNFHols54g8&_nc_zt=24&_nc_ht=scontent-cdg4-1.cdninstagram.com&_nc_gid=hm70LB43OsTJTRcOkcU2tg&_nc_ss=79aaf&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQSYl7vuUvFhFWCs56JhifuiCgWcrtkB1mJOQXqhjfIwdw&oe=6B048DE4" alt="HEGGE" width="44" height="44" class="h-11 w-11 shrink-0 border-[3px] border-ink bg-white object-cover shadow-sm -rotate-6">
+          <span class="relative grid h-11 w-11 shrink-0 -rotate-6 place-items-center overflow-hidden border-[3px] border-ink bg-white text-lg font-black shadow-sm">
+            <span aria-hidden="true" x-text="(restaurant.nameFa || restaurant.name || '').charAt(0)"></span>
+            <img x-show="restaurant.logo && !logoFailed" :src="restaurant.logo || null" alt="" width="44" height="44" referrerpolicy="no-referrer"
+                 class="absolute inset-0 h-full w-full bg-white object-cover" @error="logoFailed = true">
+          </span>
           <span class="min-w-0 leading-none">
             <span class="block truncate text-lg font-black tracking-tight" x-text="restaurant.nameFa || restaurant.name"></span>
             <span class="block truncate text-[10px] font-bold uppercase tracking-wider text-ink/60" x-text="restaurant.name"></span>
@@ -360,7 +367,7 @@
         </p>
         <div class="mt-6 flex flex-wrap items-center gap-3">
           <a href="#menu" class="btn-brutal inline-flex items-center gap-2 px-5 py-2.5 text-sm">مشاهده غذاها ↓</a>
-          <span class="text-sm font-bold text-ink/70">تحویل · حضوری · </span>
+          <span class="text-sm font-bold text-ink/70">تحویل · حضوری · پرداخت نقدی</span>
         </div>
       </div>
     </div>
@@ -400,19 +407,26 @@
             <article class="card-brutal group flex overflow-hidden transition hover:shadow-hard sm:flex-col">
 
               <div class="relative w-24 shrink-0 overflow-hidden bg-white/80 sm:aspect-[16/10] sm:w-auto sm:border-b-[3px] sm:border-ink">
-                <div class="absolute inset-0 grid place-items-center text-4xl opacity-50 sm:text-5xl" aria-hidden="true" x-text="item.emoji || '•'"></div>
-                <img x-show="item.image" :src="item.image || null" :alt="item.name" loading="lazy" decoding="async"
-                     class="absolute inset-0 h-full w-full object-cover" @error="$el.remove()">
+                <template x-if="!item.image || item.imgFailed">
+                  <div class="absolute inset-0 grid place-items-center" aria-hidden="true">
+                    <img x-show="restaurant.logo && !logoFailed" :src="restaurant.logo || null" alt="" referrerpolicy="no-referrer"
+                         class="h-12 w-12 object-contain opacity-30 grayscale sm:h-20 sm:w-20">
+                    <span x-show="!restaurant.logo || logoFailed" class="text-4xl opacity-50 sm:text-5xl" x-text="item.emoji || '•'"></span>
+                  </div>
+                </template>
+                <img x-show="item.image && !item.imgFailed" :srcset="imgSet(item) || null" sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 96px"
+                     :src="item.image || null" :alt="itemLabel(item)" referrerpolicy="no-referrer" loading="lazy" decoding="async"
+                     class="absolute inset-0 h-full w-full object-cover" @error="imgError(item)">
                 <span x-cloak x-show="item.badge" x-text="item.badge"
                       class="absolute left-2 top-2 max-w-[calc(100%-1rem)] truncate whitespace-nowrap border-2 border-ink bg-orange px-1.5 py-0.5 text-[10px] font-black uppercase"></span>
-                <span x-cloak x-show="hasOptions(item) && qtyInCart(item.id) > 0" x-text="qtyInCart(item.id) + ' در سبد'"
+                <span x-cloak x-show="customizable(item) && qtyInCart(item.id) > 0" x-text="qtyInCart(item.id) + ' در سبد'"
                       class="absolute bottom-2 left-2 border-2 border-ink bg-paper px-1.5 py-0.5 text-[10px] font-bold"></span>
               </div>
 
               <div class="flex min-w-0 flex-1 flex-col p-3.5">
-                <h3 class="text-[15px] font-black leading-tight" x-text="item.nameFa || item.name"></h3>
-                <p class="mt-0.5 text-xs font-medium text-ink/50" x-text="item.name"></p>
-                <p class="mt-1.5 line-clamp-2 text-sm font-medium text-ink/70" x-text="item.description"></p>
+                <h3 class="text-[15px] font-black leading-tight" x-text="itemLabel(item)"></h3>
+                <p x-cloak x-show="item.nameFa && item.nameFa !== item.name" class="mt-0.5 text-xs font-medium text-ink/50" x-text="item.name"></p>
+                <p x-show="item.description" class="mt-1.5 line-clamp-3 text-sm font-medium leading-relaxed text-ink/70" x-text="item.description"></p>
 
                 <div class="mt-auto flex items-end justify-between gap-2 pt-3">
                   <div class="leading-tight">
@@ -422,17 +436,19 @@
 
                   <span x-cloak x-show="item.soldOut" class="border-2 border-ink bg-paper px-2.5 py-1.5 text-xs font-bold text-ink/50">تمام شد</span>
 
-                  <button type="button" x-cloak x-show="!item.soldOut && hasOptions(item)" @click="openItem(item)"
-                          class="btn-brutal shrink-0 whitespace-nowrap px-3 py-1.5 text-sm" :aria-label="'شخصی‌سازی ' + item.name">شخصی‌سازی</button>
+                  <button type="button" x-cloak x-show="!item.soldOut && customizable(item)" @click="openItem(item)"
+                          class="btn-brutal shrink-0 whitespace-nowrap px-3 py-1.5 text-sm"
+                          :aria-label="(hasOptions(item) ? 'شخصی‌سازی ' : 'افزودن ') + itemLabel(item)"
+                          x-text="hasOptions(item) ? 'شخصی‌سازی' : 'افزودن'"></button>
 
-                  <template x-if="!item.soldOut && !hasOptions(item)">
+                  <template x-if="!item.soldOut && !customizable(item)">
                     <div>
                       <button type="button" x-show="qtyInCart(item.id) === 0" @click="openItem(item)"
-                              class="btn-brutal whitespace-nowrap px-3.5 py-1.5 text-sm" :aria-label="'افزودن ' + item.name">افزودن</button>
+                              class="btn-brutal whitespace-nowrap px-3.5 py-1.5 text-sm" :aria-label="'افزودن ' + itemLabel(item)">افزودن</button>
                       <div x-show="qtyInCart(item.id) > 0" class="stepper">
-                        <button type="button" @click="changeQty(simpleKey(item), -1)" :aria-label="'کم کردن ' + item.name">−</button>
+                        <button type="button" @click="changeQty(simpleKey(item), -1)" :aria-label="'کم کردن ' + itemLabel(item)">−</button>
                         <output x-text="qtyInCart(item.id)"></output>
-                        <button type="button" @click="changeQty(simpleKey(item), 1)" :aria-label="'افزودن ' + item.name">+</button>
+                        <button type="button" @click="changeQty(simpleKey(item), 1)" :aria-label="'افزودن ' + itemLabel(item)">+</button>
                       </div>
                     </div>
                   </template>
@@ -471,11 +487,10 @@
       </span>
       <span class="text-base font-black tabular-nums" x-text="money(subtotal)"></span>
     </button>
-    <p x-show="pos.status === 'offline'" class="mt-1.5 text-center text-xs font-black text-ink">سفارش آنلاین فعلاً بسته است</p>
+    <p x-cloak x-show="pos.status === 'offline'" class="mx-auto mt-2 w-fit max-w-full border-2 border-ink bg-ink px-3 py-1 text-center text-xs font-black text-[#c8ff00]">سفارش آنلاین فعلاً بسته است</p>
   </div>
 
-  <!-- Customizer, Cart, Receipt, Config, Toast — same structure as before, restyled -->
-  <!-- For length, the full interactive panels are kept with the same Alpine bindings -->
+  <!-- Item dialog -->
 
   <div x-cloak x-show="cz.open" class="fixed inset-0 z-50 flex items-end justify-center sm:items-center" role="dialog" aria-modal="true">
     <div class="absolute inset-0 bg-ink/70" x-show="cz.open" x-transition.opacity @click="cz.open = false"></div>
@@ -484,10 +499,14 @@
          x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-y-0 opacity-100" x-transition:leave-end="translate-y-8 opacity-0"
          class="relative flex max-h-[92dvh] w-full max-w-lg flex-col border-4 border-ink bg-paper shadow-hard">
       <div class="flex items-start gap-3 border-b-[3px] border-ink p-4">
-        <div class="grid h-12 w-12 shrink-0 place-items-center border-2 border-ink bg-white text-2xl" aria-hidden="true" x-text="cz.item && cz.item.emoji"></div>
+        <div class="relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden border-2 border-ink bg-white text-2xl" aria-hidden="true">
+          <span x-text="(cz.item && cz.item.emoji) || '•'"></span>
+          <img x-show="cz.item && cz.item.image && !cz.item.imgFailed" :src="(cz.item && cz.item.image) || null" alt="" referrerpolicy="no-referrer"
+               class="absolute inset-0 h-full w-full object-cover" @error="cz.item.imgFailed = true">
+        </div>
         <div class="min-w-0 flex-1">
-          <h2 class="text-base font-black leading-tight" x-text="cz.item && (cz.item.nameFa || cz.item.name)"></h2>
-          <p class="mt-0.5 line-clamp-2 text-sm font-medium text-ink/70" x-text="cz.item && cz.item.description"></p>
+          <h2 class="text-base font-black leading-tight" x-text="cz.item && itemLabel(cz.item)"></h2>
+          <p class="mt-0.5 line-clamp-4 text-sm font-medium leading-relaxed text-ink/70" x-text="cz.item && cz.item.description"></p>
         </div>
         <button type="button" x-ref="czClose" @click="cz.open = false" aria-label="بستن" class="grid h-8 w-8 shrink-0 place-items-center border-2 border-ink bg-paper text-lg font-black hover:bg-white">✕</button>
       </div>
@@ -527,13 +546,13 @@
           <button type="button" @click="czStep(1)" aria-label="افزودن">+</button>
         </div>
         <button type="button" @click="confirmCz()" class="btn-brutal orange flex flex-1 items-center justify-between gap-3 px-4 py-2.5">
-          <span>افزودن به سفارش</span><span class="tabular-nums" x-text="money(czTotal)"></span>
+          <span class="whitespace-nowrap">افزودن<span class="hidden sm:inline"> به سفارش</span></span><span class="whitespace-nowrap tabular-nums" x-text="money(czTotal)"></span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Cart drawer (simplified structure for length; full logic preserved via Alpine) -->
+  <!-- Cart and checkout drawer -->
   <div x-cloak x-show="drawerOpen" class="fixed inset-0 z-50" role="dialog" aria-modal="true">
     <div class="absolute inset-0 bg-ink/70" x-show="drawerOpen" x-transition.opacity @click="closeCart()"></div>
     <aside x-show="drawerOpen"
@@ -559,10 +578,14 @@
             <template x-for="l in cartLines" :key="l.key">
               <li class="card-brutal p-3">
                 <div class="flex gap-3">
-                  <div class="grid h-12 w-12 shrink-0 place-items-center border-2 border-ink bg-white text-2xl" aria-hidden="true" x-text="l.item.emoji || '•'"></div>
+                  <div class="relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden border-2 border-ink bg-white text-2xl" aria-hidden="true">
+                    <span x-text="l.item.emoji || '•'"></span>
+                    <img x-show="l.item.image && !l.item.imgFailed" :src="l.item.image || null" alt="" referrerpolicy="no-referrer"
+                         class="absolute inset-0 h-full w-full object-cover" @error="l.item.imgFailed = true">
+                  </div>
                   <div class="min-w-0 flex-1">
                     <div class="flex items-start justify-between gap-2">
-                      <h3 class="font-black leading-tight" x-text="l.item.nameFa || l.item.name"></h3>
+                      <h3 class="font-black leading-tight" x-text="itemLabel(l.item)"></h3>
                       <button type="button" @click="removeLine(l.key)" class="shrink-0 text-sm font-bold text-ink/50 hover:text-red-600">حذف</button>
                     </div>
                     <ul class="mt-1 space-y-0.5 text-xs font-medium text-ink/60">
@@ -646,7 +669,7 @@
           <div class="card-brutal p-3 text-sm">
             <ul class="space-y-1 font-medium text-ink/80">
               <template x-for="l in cartLines" :key="l.key">
-                <li class="flex justify-between gap-3"><span class="min-w-0 truncate"><b class="font-black" x-text="l.qty + '×'"></b> <span x-text="l.item.nameFa || l.item.name"></span></span><span class="shrink-0 tabular-nums text-ink/60" x-text="money(l.lineTotal)"></span></li>
+                <li class="flex justify-between gap-3"><span class="min-w-0 truncate"><b class="font-black" x-text="l.qty + '×'"></b> <span x-text="itemLabel(l.item)"></span></span><span class="shrink-0 tabular-nums text-ink/60" x-text="money(l.lineTotal)"></span></li>
               </template>
             </ul>
           </div>
@@ -695,7 +718,7 @@
     </div>
   </div>
 
-  <!-- Staff settings (kept minimal) -->
+  <!-- Staff settings -->
   <div x-cloak x-show="configOpen" class="fixed inset-0 z-[70] flex items-end justify-center sm:items-center" role="dialog" aria-modal="true">
     <div class="absolute inset-0 bg-ink/80" x-show="configOpen" x-transition.opacity @click="configOpen = false"></div>
     <div x-show="configOpen"
@@ -732,6 +755,8 @@
       </div>
       <div class="flex flex-wrap gap-2 border-t-[3px] border-ink p-4" style="padding-bottom: max(1rem, env(safe-area-inset-bottom));">
         <button type="button" @click="testConnection()" :disabled="testing" class="btn-brutal paper px-4 py-2 text-sm" x-text="testing ? 'در حال تست…' : 'تست اتصال'"></button>
+        <button type="button" x-cloak x-show="hasLast" @click="reprintLast()" class="btn-brutal paper px-4 py-2 text-sm">آخرین رسید</button>
+        <button type="button" @click="resetConfig()" class="btn-brutal paper px-4 py-2 text-sm">بازنشانی</button>
         <button type="button" @click="saveConfig()" class="btn-brutal orange mr-auto px-5 py-2 text-sm">ذخیره</button>
       </div>
     </div>

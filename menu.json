@@ -1,6 +1,7 @@
 {
+  "_comment": "optionGroups is empty on purpose: the SnappFood page lists no sizes, crusts or toppings. Add groups here and reference them from item.options to enable choices.",
   "meta": {
-    "version": "2026-11-19",
+    "version": "2026-11-21",
     "restaurant": {
       "name": "HEGGE",
       "nameFa": "هگه",
@@ -8,7 +9,8 @@
       "orderPrefix": "HG",
       "phone": "02122201911",
       "address": "تهران، دزاشیب - حکمت، خیابان کریمی، پلاک ۴۴",
-      "hours": "همه‌روزه ۱۱:۴۵ – ۲۳:۴۵"
+      "hours": "همه‌روزه ۱۱:۴۵ – ۲۳:۴۵",
+      "logo": "https://cdn.snappfood.ir/media/cache/vendor_logo/uploads/images/vendors/logos/6a96c4b4862f5398367462.jpeg"
     },
     "currency": {
       "symbol": "Toman",
@@ -26,785 +28,691 @@
       "orderPath": "/api/orders",
       "timeoutMs": 4000,
       "pollMs": 30000
+    },
+    "source": {
+      "name": "SnappFood",
+      "url": "https://snappfood.ir/restaurant/menu/%D9%81%D8%B3%D8%AA_%D9%81%D9%88%D8%AF_%D9%87%DA%AF%D9%87-r-44eojj/",
+      "capturedAt": "2026-11-21",
+      "note": "Prices in Toman, copied from the saved SnappFood page. Update when prices change."
+    },
+    "images": {
+      "small": "/200x201/",
+      "large": "/641x641/",
+      "smallW": 200,
+      "largeW": 641,
+      "note": "SnappFood's own page loads the same photo at both sizes (two confirmed). Cards ask for the large one and fall back to the 200 px file if it fails. Delete this block to always use the URL in item.image."
     }
   },
   "categories": [
     {
       "id": "pizza",
-      "name": "Pizza",
-      "nameFa": "پیتزا",
-      "icon": "🍕"
+      "name": "American Pizza",
+      "nameFa": "پیتزا آمریکایی"
     },
     {
-      "id": "burgers",
+      "id": "burger",
       "name": "Burgers",
-      "nameFa": "برگر",
-      "icon": "🍔"
+      "nameFa": "برگر"
     },
     {
-      "id": "sandwiches",
-      "name": "Sandwiches",
-      "nameFa": "ساندویچ",
-      "icon": "🥪"
+      "id": "hot-sandwich",
+      "name": "Hot Sandwiches",
+      "nameFa": "ساندویچ گرم"
+    },
+    {
+      "id": "cold-sandwich",
+      "name": "Cold Sandwiches",
+      "nameFa": "ساندویچ سرد"
+    },
+    {
+      "id": "starter",
+      "name": "Starters",
+      "nameFa": "پیش غذا"
     },
     {
       "id": "drinks",
       "name": "Drinks",
-      "nameFa": "نوشیدنی",
-      "icon": "🥤"
+      "nameFa": "نوشیدنی"
     },
     {
-      "id": "sides",
-      "name": "Sides",
-      "nameFa": "کنار غذا",
-      "icon": "🍟"
+      "id": "addons",
+      "name": "Add-ons",
+      "nameFa": "افزودنی ها"
     }
   ],
-  "optionGroups": {
-    "crust": {
-      "label": "Crust",
-      "type": "single",
-      "choices": [
-        {
-          "id": "classic",
-          "label": "Classic hand-tossed",
-          "price": 0,
-          "default": true
-        },
-        {
-          "id": "thin",
-          "label": "Thin & crispy",
-          "price": 0
-        },
-        {
-          "id": "pan",
-          "label": "Pan (thick & fluffy)",
-          "price": 0
-        },
-        {
-          "id": "stuffed",
-          "label": "Cheese-stuffed crust",
-          "price": 0
-        }
-      ]
-    },
-    "pizzaCheese": {
-      "label": "Extra cheese",
-      "type": "single",
-      "choices": [
-        {
-          "id": "none",
-          "label": "No extra",
-          "price": 0,
-          "default": true,
-          "none": true
-        },
-        {
-          "id": "extra",
-          "label": "Extra cheese",
-          "price": 0
-        },
-        {
-          "id": "double",
-          "label": "Double cheese",
-          "price": 0
-        }
-      ]
-    },
-    "cheeseSlice": {
-      "label": "Extra cheese",
-      "type": "single",
-      "choices": [
-        {
-          "id": "none",
-          "label": "No extra",
-          "price": 0,
-          "default": true,
-          "none": true
-        },
-        {
-          "id": "slice",
-          "label": "Extra cheese slice",
-          "price": 0
-        },
-        {
-          "id": "double",
-          "label": "Double cheese slices",
-          "price": 0
-        }
-      ]
-    },
-    "sauces": {
-      "label": "Sauces",
-      "hint": "Pick up to 2 — free",
-      "type": "multi",
-      "max": 2,
-      "choices": [
-        {
-          "id": "ketchup",
-          "label": "Ketchup",
-          "price": 0
-        },
-        {
-          "id": "mayo",
-          "label": "Mayo",
-          "price": 0
-        },
-        {
-          "id": "garlic",
-          "label": "Garlic sauce",
-          "price": 0
-        },
-        {
-          "id": "bbq",
-          "label": "BBQ",
-          "price": 0
-        },
-        {
-          "id": "chili",
-          "label": "Hot chili",
-          "price": 0
-        },
-        {
-          "id": "mustard",
-          "label": "Mustard",
-          "price": 0
-        }
-      ]
-    },
-    "addons": {
-      "label": "Add-ons",
-      "hint": "Pick up to 4",
-      "type": "multi",
-      "max": 4,
-      "choices": [
-        {
-          "id": "patty",
-          "label": "Extra patty",
-          "price": 120000
-        },
-        {
-          "id": "mushrooms",
-          "label": "Grilled mushrooms",
-          "price": 30000
-        },
-        {
-          "id": "jalapeno",
-          "label": "Jalapeños",
-          "price": 20000
-        },
-        {
-          "id": "egg",
-          "label": "Fried egg",
-          "price": 25000
-        },
-        {
-          "id": "pickles",
-          "label": "Extra pickles",
-          "price": 0
-        }
-      ]
-    },
-    "combo": {
-      "label": "Make it a combo",
-      "hint": "Regular fries + a soft drink",
-      "type": "single",
-      "choices": [
-        {
-          "id": "none",
-          "label": "Just the sandwich",
-          "price": 0,
-          "default": true,
-          "none": true
-        },
-        {
-          "id": "combo",
-          "label": "Combo: fries + soft drink",
-          "price": 110000
-        }
-      ]
-    },
-    "portion": {
-      "label": "Portion",
-      "type": "single",
-      "choices": [
-        {
-          "id": "regular",
-          "label": "Regular",
-          "price": 0,
-          "default": true
-        },
-        {
-          "id": "large",
-          "label": "Large",
-          "price": 55000
-        }
-      ]
-    },
-    "dips": {
-      "label": "Dips",
-      "hint": "Pick up to 3",
-      "type": "multi",
-      "max": 3,
-      "choices": [
-        {
-          "id": "ketchup",
-          "label": "Ketchup",
-          "price": 0
-        },
-        {
-          "id": "garlic-mayo",
-          "label": "Garlic mayo",
-          "price": 15000
-        },
-        {
-          "id": "ranch",
-          "label": "Ranch",
-          "price": 15000
-        },
-        {
-          "id": "bbq",
-          "label": "BBQ",
-          "price": 15000
-        },
-        {
-          "id": "chili",
-          "label": "Hot chili",
-          "price": 15000
-        }
-      ]
-    }
-  },
+  "optionGroups": {},
   "items": [
     {
-      "id": "margherita",
-      "sku": "PZ-01",
+      "id": "sf-38187503",
+      "sku": "38187503",
       "category": "pizza",
-      "name": "Margherita",
-      "nameFa": "پیتزا مارگاریتا",
-      "description": "سس گوجه، موزارلا و ریحان تازه روی خمیر دست‌ساز.",
-      "price": 245000,
+      "name": "پیتزا چیکن پستو",
+      "description": "سس پستو، قارچ، 200 گرم گوشت مرغ، زیتون، گوجه خشک، فلفل دلمه ای، خمیر دست ساز پیتزا، پنیر، سس مخصوص",
+      "price": 990000,
       "emoji": "•",
-      "image": "",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/74be4ea8b7fa7ca8.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "pepperoni",
-      "sku": "PZ-02",
+      "id": "sf-38187644",
+      "sku": "38187644",
       "category": "pizza",
-      "name": "Pepperoni",
-      "nameFa": "پیتزا پپرونی",
-      "description": "پپرونی فراوان روی موزارلای داغ.",
-      "price": 295000,
+      "name": "پیتزا باربیکیو چیکن",
+      "description": "سس باربیکیو، قارچ، 200 گرم گوشت مرغ خورد شده، زیتون فلفل دلمه ای، خمیر دست ساز پیتزا، پنیر، سس مخصوص",
+      "price": 990000,
       "emoji": "•",
-      "image": "",
-      "popular": true,
-      "badge": "Popular",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/33ffcb5da1f6e092.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "hegeh-special",
-      "sku": "PZ-03",
+      "id": "sf-38187645",
+      "sku": "38187645",
       "category": "pizza",
-      "name": "Hegeh Special",
-      "nameFa": "پیتزا مخصوص هگه",
-      "description": "گوشت، پپرونی، قارچ، فلفل دلمه‌ای، زیتون و پنیر اضافه.",
-      "price": 325000,
+      "name": "پیتزا فیله چیز استیک",
+      "description": "سس سیر، قارچ، 200 گرم گوشت راسته گوساله، زیتون فلفل دلمه ای، خمیر دست ساز پیتزا، پنیر، سس مخصوص",
+      "price": 1600000,
       "emoji": "•",
-      "image": "",
-      "popular": true,
-      "badge": "Signature",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/a3ac2f05f9c524c2.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "chicken-mushroom",
-      "sku": "PZ-04",
+      "id": "sf-38187656",
+      "sku": "38187656",
       "category": "pizza",
-      "name": "Chicken & Mushroom",
-      "nameFa": "پیتزا مرغ و قارچ",
-      "description": "مرغ گریل، قارچ و موزارلا با پایه خامه‌ای.",
-      "price": 315000,
+      "name": "پیتزا ساسیج پارتی",
+      "description": "سس مخصوص، قارچ، 300 گرم میکس سوسیس و ژامبون 80 درصد، زیتون فلفل دلمه ای، خمیر دست ساز پیتزا، پنیر، سس مخصوص",
+      "price": 880000,
       "emoji": "•",
-      "image": "",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/cd16759864ae64a8.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "veggie",
-      "sku": "PZ-05",
+      "id": "sf-38188117",
+      "sku": "38188117",
       "category": "pizza",
-      "name": "Garden Veggie",
-      "nameFa": "پیتزا سبزیجات",
-      "description": "قارچ، فلفل دلمه‌ای، زیتون، ذرت و پیاز.",
-      "price": 265000,
+      "name": "پیتزا پولد بیف",
+      "description": "سس مخصوص، قارچ، 200 گرم گوشت ریش ریش شده گوساله، زیتون فلفل دلمه ای، خمیر دست ساز پیتزا، پنیر، سس مخصوص",
+      "price": 1200000,
       "emoji": "•",
-      "image": "",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/1640970f0d2f8d4d.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "bbq-chicken",
-      "sku": "PZ-06",
+      "id": "sf-38188129",
+      "sku": "38188129",
       "category": "pizza",
-      "name": "BBQ Chicken",
-      "nameFa": "پیتزا مرغ باربیکیو",
-      "description": "مرغ باربیکیو دودی، پیاز قرمز و موزارلا.",
-      "price": 320000,
+      "name": "پیتزا ماشروم",
+      "description": "سس مخصوص، قارچ 200 گرم، زیتون فلفل دلمه ای، خمیر دست ساز پیتزا، پنیر، سس مخصوص",
+      "price": 590000,
       "emoji": "•",
-      "image": "",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/9220ef58dbe175ae.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "spicy-beef",
-      "sku": "PZ-07",
+      "id": "sf-38188166",
+      "sku": "38188166",
       "category": "pizza",
-      "name": "Spicy Beef & Jalapeño",
-      "nameFa": "پیتزا گوشت و هالوپینو",
-      "description": "گوشت مزه‌دار، هالوپینو، پیاز قرمز و پولک فلفل.",
-      "price": 335000,
+      "name": "پیتزا اسپشیال آمریکایی",
+      "description": "خمیر پیتزا آمریکایی، 100 گرم گوشت چرخ کرده گوساله، 200 گرم میکس سوسیس و کالباس 80 درصد، قارچ، پنیر پیتزا، سس مخصوص",
+      "price": 1100000,
       "emoji": "•",
-      "image": "",
-      "badge": "Spicy",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/dd5cab7c9dcffd64.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "four-cheese",
-      "sku": "PZ-08",
-      "category": "pizza",
-      "name": "Four Cheese",
-      "nameFa": "پیتزا چهار پنیر",
-      "description": "موزارلا، چدار، پارمزان و پنیر خامه‌ای.",
+      "id": "sf-38187132",
+      "sku": "38187132",
+      "category": "burger",
+      "name": "برگر کلاسیک",
+      "description": "یک عدد برگر دست ساز گوشت گوساله130 گرمی، کاهو، گوجه، خیارشور، نان برگر، سس مخصوص",
+      "price": 740000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/9976024a3c2a31d7.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187143",
+      "sku": "38187143",
+      "category": "burger",
+      "name": "چیز برگر",
+      "description": "یک عدد برگر دست ساز گوشت گوساله130 گرمی، پنیر ورقه ای، کاهو، گوجه، خیارشور، نان برگر، سس مخصوص",
+      "price": 830000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/254e3655dea5268d.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187200",
+      "sku": "38187200",
+      "category": "burger",
+      "name": "دبل چیز برگر",
+      "description": "2 عدد برگر دست ساز گوشت گوساله130 گرمی، 2 عدد پنیر ورقه ای، کاهو، گوجه، خیارشور، نان برگر، سس مخصوص",
+      "price": 1130000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/35cfc223722e2dee.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187201",
+      "sku": "38187201",
+      "category": "burger",
+      "name": "چیکن برگر",
+      "description": "200 گرم فیله مرغ، کاهو، گوجه، خیارشور، نان برگر، سس مخصوص",
+      "price": 580000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/7618d43a42416050.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187204",
+      "sku": "38187204",
+      "category": "burger",
+      "name": "هگه برگر",
+      "description": "یک عدد برگر دست ساز گوشت گوساله130 گرمی، یک عدد چوریتسو گوشت 95 درصد، 50گرم راسته گوساله مزه دار شده، کاهو، گوجه، خیارشور، نان برگر، سس مخصوص",
+      "price": 1190000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/a69a3ec914e259a3.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187211",
+      "sku": "38187211",
+      "category": "burger",
+      "name": "ماشروم چیز برگر",
+      "description": "یک عدد برگر دست ساز گوشت گوساله130 گرمی، قارچ، پنیر ورقه ای کاهو، گوجه، خیارشور، نان برگر، سس مخصوص",
+      "price": 830000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/6b76678d6754e517.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186204",
+      "sku": "38186204",
+      "category": "hot-sandwich",
+      "name": "ساندویچ هات داگ ساده",
+      "description": "یک عدد هات داگ گوشت 90%، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 460000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/1d66c553e9e2923d.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186211",
+      "sku": "38186211",
+      "category": "hot-sandwich",
+      "name": "ساندویچ هات داگ با قارچ و پنیر",
+      "description": "یک عدد سوسیس هات داگ گوشت 90٪، قارچ، کاهو، خیارشور، گوجه، پنیر پیتزا، نان باگت، سس مخصوص",
+      "price": 540000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/371c8bc7ca85edee.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186246",
+      "sku": "38186246",
+      "category": "hot-sandwich",
+      "name": "ساندویچ کوکتل پنیری",
+      "description": "3 عدد سوسیس کوکتل پنیری گوشت 90%، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 540000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/cb6b8f87cbc89d9b.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186252",
+      "sku": "38186252",
+      "category": "hot-sandwich",
+      "name": "ساندویچ کراکف پنیری",
+      "description": "یک عدد سوسیس کراکف پنیری گوشت 90%، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 580000,
+      "emoji": "•",
+      "image": "",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186485",
+      "sku": "38186485",
+      "category": "hot-sandwich",
+      "name": "ساندویچ سوسیس بندری",
+      "description": "350گرم خوراک بندری، سوسیس گوشت 70%، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 390000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/df57f450af6b9af3.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186491",
+      "sku": "38186491",
+      "category": "hot-sandwich",
+      "name": "ساندویچ مرغ کوبایی",
+      "description": "فیله مرغ 210گرم، ژامبون مرغ، پنیر گودا، کاهو، گوجه، خیارشور، سس مخصوص، نان باگت",
+      "price": 680000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/de0536e7fbb490af.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186494",
+      "sku": "38186494",
+      "category": "hot-sandwich",
+      "name": "ساندویچ چوریتسو",
+      "description": "3عددگرم سوسیس چوریتسو گوشت 95%، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 620000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/907d673c1adf1891.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186503",
+      "sku": "38186503",
+      "category": "hot-sandwich",
+      "name": "ساندویچ مرغ گریل",
+      "description": "200 گرم فیله مرغ گریل، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 480000,
+      "emoji": "•",
+      "image": "",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186586",
+      "sku": "38186586",
+      "category": "hot-sandwich",
+      "name": "ساندویچ مرغ و پستو",
+      "description": "200 گرم فیله مرغ طعم دار شده با سس پستو، زیتون، گوجه خشک، کاهو، گوجه، خیارشور، نان باگت و سس مخصوص",
+      "price": 590000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/860792c6884715a8.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186591",
+      "sku": "38186591",
+      "category": "hot-sandwich",
+      "name": "ساندویچ فلافل با قارچ و پنیر",
+      "description": "6 قرص فلافل، قارچ، کاهو، گوجه، خیارشور، پنیر موزارلا، نان باگت، سس مخصوص",
+      "price": 260000,
+      "emoji": "•",
+      "image": "",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186671",
+      "sku": "38186671",
+      "category": "hot-sandwich",
+      "name": "ساندویچ سوسیس شکاری",
+      "description": "200 گرم سوسیس گوشت گوساله شکاری گوشت 95%، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 520000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/60497095451538c9.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186673",
+      "sku": "38186673",
+      "category": "hot-sandwich",
+      "name": "ساندویچ رست بیف",
+      "description": "160 گرم گوشت فیله گوساله ریش ریش شده، کاهو، ‌ گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 990000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/4a805992b7c3b318.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186676",
+      "sku": "38186676",
+      "category": "hot-sandwich",
+      "name": "استیک هگه",
+      "description": "200 گرم راسته گوساله مزه دار شده، کاهو، گوجه، خیارشور، نان باگت و سس مخصوص",
+      "price": 1190000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/062bba9a6048e375.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186678",
+      "sku": "38186678",
+      "category": "hot-sandwich",
+      "name": "ساندویچ ژامبون فرانسوی",
+      "description": "3 ورق ژامبون گوشت یا مرغ تنوری شده 80 درصد، میکائیلیان، قارچ و پنیر، نان باگت، کاهو، گوجه، خیارشور و سس مخصوص",
+      "price": 490000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/dca80d126e0e018b.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186679",
+      "sku": "38186679",
+      "category": "hot-sandwich",
+      "name": "ساندویچ محفل مرغ",
+      "description": "200گرم فیله مرغ، قارچ، فلفل دلمه ای، جوانه ماش، گوجه، خیارشور، کاهو، نان باگت و سس مخصوص",
+      "price": 620000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/cb32401ecee6e320.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186905",
+      "sku": "38186905",
+      "category": "hot-sandwich",
+      "name": "ساندویچ فلافل",
+      "description": "6 قرص فلافل، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 200000,
+      "emoji": "•",
+      "image": "",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186906",
+      "sku": "38186906",
+      "category": "hot-sandwich",
+      "name": "ساندویچ محفل گوشت",
+      "description": "160 گرم راسته گوساله مزه دار شده، قارچ، فلفل دلمه ای، جوانه ماش، گوجه، خیارشور، نان باگت و سس مخصوص",
+      "price": 1200000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/c39942b70262f907.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186912",
+      "sku": "38186912",
+      "category": "hot-sandwich",
+      "name": "برگر نوستالژی",
+      "description": "100 گرم گوشت گوساله برگر، گوجه، خیارشور، نان باگت و سس مخصوص",
+      "price": 740000,
+      "emoji": "•",
+      "image": "",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38204815",
+      "sku": "38204815",
+      "category": "hot-sandwich",
+      "name": "ساندویچ کوکتل ساده",
+      "description": "3 عدد سوسیس کوکتل گوشت 90٪، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 360000,
+      "emoji": "•",
+      "image": "",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38186911",
+      "sku": "38186911",
+      "category": "cold-sandwich",
+      "name": "ساندویچ ژامبون مرغ سرد",
+      "description": "3 ورق ژامبون مرغ 80%، کاهو، گوجه، خیارشور، نان باگت، سس مخصوص",
+      "price": 380000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/86858959e0760f7a.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187133",
+      "sku": "38187133",
+      "category": "cold-sandwich",
+      "name": "الویه",
+      "description": "300 گرم الویه، سینه مرغ ریش ریش شده، ژامبون گوشت و مرغ 80 درصد، خیارشور و گوجه فرنگی، نان باگت و سس مخصوص",
+      "price": 290000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/4013d62a51626d55.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38188128",
+      "sku": "38188128",
+      "category": "cold-sandwich",
+      "name": "ساندویچ ایتالین ساب",
+      "description": "3 ورق ژامبون گوشت 80 درصد، 6 ورق سالامی 90 درصد گوشت قرمز، پنیر خامه ای ویلی، زیتون، فلفل هالوپینو، گوجه خشک، پنیر ورقه ای مطهر، نان باگت و سس مخصوص",
+      "price": 560000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/da03f6bfeb4e994f.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38188133",
+      "sku": "38188133",
+      "category": "cold-sandwich",
+      "name": "ساندویچ ژامبون گوشت و پنیر خامه ای",
+      "description": "3 ورق ژامبون گوشت 80 درصد، پنیر خامه ای ویلی، گوجه، خیارشور، نان باگت و سس مخصوص",
+      "price": 430000,
+      "emoji": "•",
+      "image": "",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187942",
+      "sku": "38187942",
+      "category": "starter",
+      "name": "نان سیر",
+      "description": "خمیر دست ساز پیتزا، سس سیر، پنیر پیتزا، زیتون",
+      "price": 590000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/d56772e80eb0526b.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187943",
+      "sku": "38187943",
+      "category": "starter",
+      "name": "سیب زمینی با قارچ و پنیر",
+      "description": "250 گرم، سیب زمینی سرخ شده، قارچ ورقه ای، پنیر پیتزا، سس کچاپ",
+      "price": 460000,
+      "emoji": "•",
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/294c2362981a57be.jpg",
+      "options": [],
+      "allowNote": true
+    },
+    {
+      "id": "sf-38187945",
+      "sku": "38187945",
+      "category": "starter",
+      "name": "سیب زمینی ساده",
+      "description": "150 گرم سیب زمینی سرخ شده، سس کچاپ و مایونز",
       "price": 340000,
       "emoji": "•",
-      "image": "",
-      "options": [
-        "crust",
-        "pizzaCheese"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/a7bfec10a20aba32.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "classic-burger",
-      "sku": "BG-01",
-      "category": "burgers",
-      "name": "Classic Burger",
-      "nameFa": "همبرگر کلاسیک",
-      "description": "پتی گوشت گریل، کاهو، گوجه، پیاز و سس مخصوص.",
-      "price": 235000,
+      "id": "sf-38187956",
+      "sku": "38187956",
+      "category": "starter",
+      "name": "سیب زمینی با پنیر چدار و ژامبون",
+      "description": "250 گرم سیب زمینی سرخ شده، پنیر چدار، یک ورق ژامبون 80 درصد",
+      "price": 460000,
       "emoji": "•",
-      "image": "",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "addons",
-        "combo"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/04d9421646964b84.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "cheeseburger",
-      "sku": "BG-02",
-      "category": "burgers",
-      "name": "Cheeseburger",
-      "nameFa": "چیزبرگر",
-      "description": "کلاسیک با چدار آب‌شده و خیارشور.",
-      "price": 255000,
+      "id": "sf-38188048",
+      "sku": "38188048",
+      "category": "starter",
+      "name": "سالاد میکس",
+      "description": "400 گرم، کاهو، خیارشور، گوجه، سس مخصوص، جوانه ماش، زیتون، گوجه خشک",
+      "price": 340000,
       "emoji": "•",
-      "image": "",
-      "popular": true,
-      "badge": "Popular",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "addons",
-        "combo"
-      ]
+      "image": "https://cdn.snappfood.ir/200x201/cdn/49/72/38/product_image/vendor/2512ee6360982c30.jpg",
+      "options": [],
+      "allowNote": true
     },
     {
-      "id": "double-burger",
-      "sku": "BG-03",
-      "category": "burgers",
-      "name": "Double Beef Burger",
-      "nameFa": "همبرگر دوبل",
-      "description": "دو پتی گوشت، دو لایه چدار و پیاز کاراملی.",
-      "price": 335000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "addons",
-        "combo"
-      ]
-    },
-    {
-      "id": "crispy-chicken-burger",
-      "sku": "BG-04",
-      "category": "burgers",
-      "name": "Crispy Chicken Burger",
-      "nameFa": "برگر مرغ سوخاری",
-      "description": "فیله مرغ سوخاری طلایی، کاهو و مایونز سیر.",
-      "price": 245000,
-      "emoji": "•",
-      "image": "",
-      "popular": true,
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "addons",
-        "combo"
-      ]
-    },
-    {
-      "id": "mushroom-burger",
-      "sku": "BG-05",
-      "category": "burgers",
-      "name": "Mushroom Cheese Burger",
-      "nameFa": "برگر قارچ و پنیر",
-      "description": "پتی گوشت، قارچ تفت‌داده و پنیر سوئیسی.",
-      "price": 265000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "addons",
-        "combo"
-      ]
-    },
-    {
-      "id": "jalapeno-burger",
-      "sku": "BG-06",
-      "category": "burgers",
-      "name": "Jalapeño Burger",
-      "nameFa": "برگر هالوپینو",
-      "description": "پتی گوشت، هالوپینو، پنیر فلفل‌دار و سس تند.",
-      "price": 275000,
-      "emoji": "•",
-      "image": "",
-      "badge": "Spicy",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "addons",
-        "combo"
-      ]
-    },
-    {
-      "id": "chicken-fillet-sandwich",
-      "sku": "SW-01",
-      "category": "sandwiches",
-      "name": "Chicken Fillet Sandwich",
-      "nameFa": "ساندویچ فیله مرغ",
-      "description": "فیله مرغ مزه‌دار گریل، کاهو، گوجه و سس سیر.",
-      "price": 215000,
-      "emoji": "•",
-      "image": "",
-      "popular": true,
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "combo"
-      ]
-    },
-    {
-      "id": "escalope-sandwich",
-      "sku": "SW-02",
-      "category": "sandwiches",
-      "name": "Chicken Escalope Sandwich",
-      "nameFa": "ساندویچ اسکالوپ مرغ",
-      "description": "مرغ سوخاری ترد، خیارشور، کاهو و مایونز.",
-      "price": 205000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "combo"
-      ]
-    },
-    {
-      "id": "steak-sandwich",
-      "sku": "SW-03",
-      "category": "sandwiches",
-      "name": "Beef Steak Sandwich",
-      "nameFa": "ساندویچ استیک گوشت",
-      "description": "گوشت استیک ورقه‌ای، پیاز گریل، فلفل و پنیر آب‌شده.",
-      "price": 285000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "combo"
-      ]
-    },
-    {
-      "id": "hotdog",
-      "sku": "SW-04",
-      "category": "sandwiches",
-      "name": "Special Hot Dog",
-      "nameFa": "هات داگ مخصوص",
-      "description": "سوسیس گریل در نان نرم با پیاز، خیارشور و پنیر.",
-      "price": 175000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "combo"
-      ]
-    },
-    {
-      "id": "falafel-sandwich",
-      "sku": "SW-05",
-      "category": "sandwiches",
-      "name": "Falafel Sandwich",
-      "nameFa": "ساندویچ فلافل",
-      "description": "فلافل ترد، گوجه، خیارشور و سس طحینه.",
-      "price": 120000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "sauces",
-        "combo"
-      ]
-    },
-    {
-      "id": "club-sandwich",
-      "sku": "SW-06",
-      "category": "sandwiches",
-      "name": "Club Sandwich",
-      "nameFa": "کلاب ساندویچ",
-      "description": "ساندویچ سه‌لایه برشته با مرغ، تخم‌مرغ، کاهو و گوجه.",
-      "price": 245000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "sauces",
-        "combo"
-      ]
-    },
-    {
-      "id": "coldcut-sandwich",
-      "sku": "SW-07",
-      "category": "sandwiches",
-      "name": "Cold-Cut Sandwich",
-      "nameFa": "ساندویچ کالباس",
-      "description": "کالباس ورقه‌ای، پنیر، خیارشور و گوجه در باگت.",
-      "price": 160000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "cheeseSlice",
-        "sauces",
-        "combo"
-      ]
-    },
-    {
-      "id": "cola",
-      "sku": "DR-01",
+      "id": "sf-38188475",
+      "sku": "38188475",
       "category": "drinks",
-      "name": "Cola (330 ml)",
-      "nameFa": "نوشابه کولا",
-      "description": "نوشابه کولا یخ‌کرده قوطی.",
-      "price": 45000,
+      "name": "نوشابه کوکا شیشه ای",
+      "description": "یک عدد نوشابه 250 سی سی مشکی",
+      "price": 92000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "orange-soda",
-      "sku": "DR-02",
+      "id": "sf-38188480",
+      "sku": "38188480",
       "category": "drinks",
-      "name": "Orange Soda (330 ml)",
-      "nameFa": "نوشابه پرتقالی",
-      "description": "نوشابه پرتقالی گازدار، سرد.",
-      "price": 45000,
+      "name": "نوشابه فانتا شیشه ای",
+      "description": "یک عدد نوشابه 250 سی سی شیشه ای زرد",
+      "price": 92000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "lemon-soda",
-      "sku": "DR-03",
+      "id": "sf-38188482",
+      "sku": "38188482",
       "category": "drinks",
-      "name": "Lemon-Lime Soda (330 ml)",
-      "nameFa": "نوشابه لیمویی",
-      "description": "نوشابه لیمویی خنک.",
-      "price": 45000,
+      "name": "نوشابه اسپرایت شیشه ای",
+      "description": "یک عدد نوشابه شیشه ای اسپرایت 250 میلی لیتر",
+      "price": 92000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "doogh",
-      "sku": "DR-04",
+      "id": "sf-38188485",
+      "sku": "38188485",
       "category": "drinks",
-      "name": "Doogh (330 ml)",
-      "nameFa": "دوغ",
-      "description": "دوغ سنتی با نعناع.",
-      "price": 40000,
+      "name": "لیموناد شیشه ای خوشگوار",
+      "description": "280 میلی لیتر",
+      "price": 80000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "water",
-      "sku": "DR-05",
+      "id": "sf-38188503",
+      "sku": "38188503",
       "category": "drinks",
-      "name": "Mineral Water (500 ml)",
-      "nameFa": "آب معدنی",
-      "description": "آب معدنی ساده.",
+      "name": "دلستر هی دی لیمو",
+      "description": "یک عدد دلستر شیشه ای هی دی با طعم لیمو 250 میلی لیتر",
+      "price": 90000,
+      "emoji": "•",
+      "image": "",
+      "options": []
+    },
+    {
+      "id": "sf-38188505",
+      "sku": "38188505",
+      "category": "drinks",
+      "name": "نوشابه زیرو شیشه ای",
+      "description": "یک عدد نوشابه زیرو شیشه ای 250 میلی لیتر",
+      "price": 92000,
+      "emoji": "•",
+      "image": "",
+      "options": []
+    },
+    {
+      "id": "sf-38188509",
+      "sku": "38188509",
+      "category": "drinks",
+      "name": "آب گازدار نیو دی",
+      "description": "آب گاز دار با طعم لیمو 300 میلی لیتر",
+      "price": 51000,
+      "emoji": "•",
+      "image": "",
+      "options": []
+    },
+    {
+      "id": "sf-38188522",
+      "sku": "38188522",
+      "category": "drinks",
+      "name": "دلستر هی دی استوایی",
+      "description": "یک عدد دلستر هی دی شیشه ای با طعم استوایی 250 میلی لیتر",
+      "price": 90000,
+      "emoji": "•",
+      "image": "",
+      "options": []
+    },
+    {
+      "id": "sf-38185692",
+      "sku": "38185692",
+      "category": "drinks",
+      "name": "آب معدنی کوچک",
+      "description": "500 میلی لیتر",
       "price": 20000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "iced-tea",
-      "sku": "DR-06",
-      "category": "drinks",
-      "name": "Iced Tea (330 ml)",
-      "nameFa": "چای سرد",
-      "description": "چای سرد هلو، کمی شیرین.",
-      "price": 55000,
+      "id": "sf-38188061",
+      "sku": "38188061",
+      "category": "addons",
+      "name": "پنیر",
+      "description": "90 گرم پنیر پیتزا",
+      "price": 100000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "lemonade",
-      "sku": "DR-07",
-      "category": "drinks",
-      "name": "Fresh Lemonade",
-      "nameFa": "لیموناد",
-      "description": "لیمو تازه، نعناع و یخ.",
-      "price": 85000,
+      "id": "sf-38188067",
+      "sku": "38188067",
+      "category": "addons",
+      "name": "قارچ و پنیر",
+      "description": "قارچ و پنیر 150 گرم",
+      "price": 130000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "mojito",
-      "sku": "DR-08",
-      "category": "drinks",
-      "name": "Virgin Mojito",
-      "nameFa": "موهیتو",
-      "description": "لیمو، نعناع و سودا روی یخ خردشده. بدون الکل.",
-      "price": 120000,
+      "id": "sf-38188448",
+      "sku": "38188448",
+      "category": "addons",
+      "name": "خوراک فیله مرغ گریل",
+      "description": "یک عدد فیله مرغ 70 گرمی، سس مخصوص",
+      "price": 130000,
       "emoji": "•",
       "image": "",
       "options": []
     },
     {
-      "id": "fries",
-      "sku": "SD-01",
-      "category": "sides",
-      "name": "French Fries",
-      "nameFa": "سیب‌زمینی سرخ‌کرده",
-      "description": "سیب‌زمینی سرخ‌کرده طلایی با نمک دریا.",
-      "price": 110000,
-      "emoji": "•",
-      "image": "",
-      "popular": true,
-      "options": [
-        "portion",
-        "dips"
-      ]
-    },
-    {
-      "id": "cheese-fries",
-      "sku": "SD-02",
-      "category": "sides",
-      "name": "Cheesy Fries",
-      "nameFa": "سیب‌زمینی پنیری",
-      "description": "سیب‌زمینی با سس پنیر آب‌شده.",
-      "price": 150000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "portion",
-        "dips"
-      ]
-    },
-    {
-      "id": "onion-rings",
-      "sku": "SD-03",
-      "category": "sides",
-      "name": "Onion Rings",
-      "nameFa": "حلقه‌های پیاز",
-      "description": "حلقه‌های پیاز ضخیم با روکش ترد.",
-      "price": 120000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "dips"
-      ]
-    },
-    {
-      "id": "nuggets",
-      "sku": "SD-04",
-      "category": "sides",
-      "name": "Chicken Nuggets (6 pcs)",
-      "nameFa": "ناگت مرغ",
-      "description": "ناگت مرغ ترد، داغ سرو می‌شود.",
-      "price": 175000,
-      "emoji": "•",
-      "image": "",
-      "options": [
-        "dips"
-      ]
-    },
-    {
-      "id": "garlic-bread",
-      "sku": "SD-05",
-      "category": "sides",
-      "name": "Garlic Bread",
-      "nameFa": "نان سیر",
-      "description": "باگت برشته با کره سیر و سبزیجات معطر.",
-      "price": 105000,
-      "emoji": "•",
-      "image": "",
-      "options": []
-    },
-    {
-      "id": "coleslaw",
-      "sku": "SD-06",
-      "category": "sides",
-      "name": "Coleslaw",
-      "nameFa": "سالاد کلم",
-      "description": "سالاد کلم و هویج خامه‌ای.",
-      "price": 70000,
-      "emoji": "•",
-      "image": "",
-      "options": []
-    },
-    {
-      "id": "shirazi-salad",
-      "sku": "SD-07",
-      "category": "sides",
-      "name": "Shirazi Salad",
-      "nameFa": "سالاد شیرازی",
-      "description": "خیار، گوجه و پیاز خردشده با آب‌لیمو و نعناع خشک.",
-      "price": 85000,
+      "id": "sf-38191767",
+      "sku": "38191767",
+      "category": "addons",
+      "name": "قارچ تفت داده شده",
+      "description": "100 گرم قارچ تفت داده شده",
+      "price": 80000,
       "emoji": "•",
       "image": "",
       "options": []
